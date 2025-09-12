@@ -19,9 +19,6 @@ export default function Offers(){
             setOffers(res.member);
         })
     }, [])
-    return <div className="offers">
-        {
-        <OffersComponent offers={offers} />
-        }
-    </div>
+    return <OffersComponent offers={offers} />
+
 }

@@ -20,17 +20,13 @@ export default function Offer(){
             })
             .then(res => res.json())
             .then((res: any) => {
-                console.log(res)
                 setOffer(res);
             })
         }, [])
 
     useEffect(() => {
             fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}`].join(""), {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                }
+                method: "GET"
             })
             .then(res => res.json())
             .then((res: any) => {
@@ -44,10 +40,7 @@ export default function Offer(){
         const vehicle_id = offer.vehicle.split("/").reverse()[0]
         console.log(vehicle_id)
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/vehicles/${vehicle_id}/pictures`].join(""), {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
+            method: "GET"
         })
         .then(res => res.json())
         .then((res: any) => {

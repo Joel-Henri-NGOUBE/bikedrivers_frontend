@@ -10,6 +10,6 @@ export interface IOffer{
     messages: string[],
     requiredDocuments: string[],
     title: string,
-    price: 0,
+    price: string,
     service: "LOCATION" | "SALE"
 }
