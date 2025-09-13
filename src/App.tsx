@@ -4,6 +4,7 @@ import LogIn from "./Pages/Login.tsx/Login";
 import Offers from "./Pages/Offers/Offers";
 import Offer from "./Pages/Offer/Offer";
 import AddOrSetOffer from "./Pages/AddOrSetOffer/AddOrSetOffer";
+import Vehicles from "./Pages/Vehicles/Vehicles";
 
 function App() {
   return  <Routes>
@@ -14,10 +15,10 @@ function App() {
             <Route path="/offer/addorset" element={<AddOrSetOffer />}>
               <Route path="/offer/addorset/:id" element={<AddOrSetOffer />}/>
             </Route>
-            {/* <Route path="/vehicles" element={<Vehicles />}>
-              <Route path="/vehicles/:id" element={<Vehicle />} />
-            </Route>
-            <Route path="/applications" element={<Applications />}>
+            <Route path="/vehicles" element={<Vehicles />}/>
+              {/* <Route path="/vehicles/:id" element={<Vehicle />} /> */}
+            {/* </Route> */}
+            {/* <Route path="/applications" element={<Applications />}>
               <Route path="/applications/:id" element={<Application />}>
                 <Route path="/applications/:id/documents/:id_document" element={<Documents />}/>
               </Route>

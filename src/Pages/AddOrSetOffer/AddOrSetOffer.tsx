@@ -51,13 +51,11 @@ export default function AddOrSetOffer(){
                 navigate("/");
              }
              else{
-                // console.log("Hey")
                 return res.json()
              }
         })
         .then((res: {id: number}) => {
             setUserId(res.id)
-            // console.log(res.id)
         })
         }
     , [])
