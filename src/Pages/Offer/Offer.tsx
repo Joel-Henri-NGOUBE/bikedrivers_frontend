@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import type { IOffer } from "../../Interfaces/IOffer";
 import { useParams } from "react-router";
-import type { Picture } from "../../Interfaces/Picture";
+import type { IPicture } from "../../Interfaces/Picture";
+import { getLastSplittedElement } from "../../Utils/functions";
 
 export default function Offer(){
 
     const [offer, setOffer] = useState<IOffer | null>(null)
 
-    const [pictures, setPictures] = useState<Picture[]>([])
+    const [pictures, setPictures] = useState<IPicture[]>([])
 
     const { id } = useParams()
 
@@ -37,7 +38,7 @@ export default function Offer(){
 
     useEffect(() => {
         if(offer){
-        const vehicle_id = offer.vehicle.split("/").reverse()[0]
+        const vehicle_id = getLastSplittedElement(offer.vehicle)
         console.log(vehicle_id)
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/vehicles/${vehicle_id}/pictures`].join(""), {
             method: "GET"

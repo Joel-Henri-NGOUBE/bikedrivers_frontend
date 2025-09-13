@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import InputLabel from "../../Components/InputLabel";
 import InputSelect from "../../Components/InputSelect";
 import type { IVehicle } from "../../Interfaces/Vehicle";
+import { getLastSplittedElement } from "../../Utils/functions";
 
 export default function AddOrSetOffer(){
 
@@ -96,7 +97,7 @@ export default function AddOrSetOffer(){
             // console.log(offer)
             // Mettre l'id du vehicule s'il n'y a pas d'offre
             if(offer?.vehicle){
-                const vehicleId = offer?.vehicle.split("/").reverse()[0]
+                const vehicleId = getLastSplittedElement(offer?.vehicle)
                 // console.log(offer?.vehicle)
                 setVehicleId(vehicleId ? parseInt(vehicleId) : 0)
                 setFormValues({...formValues, vehicle: res.member.filter((v: any) => v.id === vehicleId)})

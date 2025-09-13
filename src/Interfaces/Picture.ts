@@ -1,7 +1,7 @@
-export interface Picture{
+export interface IPicture{
     id: number,
     path: string,
     addedAt: string,
     updatedAt: string,
-    vehicle_id: number
+    vehicle: string
 }

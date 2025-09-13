@@ -31,16 +31,6 @@ export default function Vehicles(){
 
     const [vehiclesToPictures, setVehiclesToPictures] = useState<IVehicleToPictures[]>([])
 
-
-    // const form = {
-    //     title: "",
-    //     description: "",
-    //     vehicle: "",
-    //     service: "",
-    //     price: "",
-    // }
-    // const [formValues, setFormValues] = useState<typeof form>(form)
-
     const navigate: NavigateFunction = useNavigate()
 
     const token = localStorage.getItem("token")
@@ -73,27 +63,6 @@ export default function Vehicles(){
         })
         }
     , [])
-
-    // useEffect(() => {
-    //     token &&
-    //         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}`].join(""), {
-    //             method: "GET",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             }
-    //         })
-    //         .then(res => res.json())
-    //         .then((res: IOffer) => {
-    //             // console.log(res)
-    //             setOffer(res);
-    //             setFormValues({...formValues,
-    //                 title: res.title,
-    //                 description: res.description,
-    //                 service: res.service,
-    //                 price: res.price
-    //             })
-    //         })
-    //     }, [])
 
     useEffect(() => {
         // console.log(token, userId);

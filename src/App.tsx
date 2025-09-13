@@ -5,6 +5,7 @@ import Offers from "./Pages/Offers/Offers";
 import Offer from "./Pages/Offer/Offer";
 import AddOrSetOffer from "./Pages/AddOrSetOffer/AddOrSetOffer";
 import Vehicles from "./Pages/Vehicles/Vehicles";
+import Monitoring from "./Pages/Monitoring/Monitoring";
 
 function App() {
   return  <Routes>
@@ -16,6 +17,7 @@ function App() {
               <Route path="/offer/addorset/:id" element={<AddOrSetOffer />}/>
             </Route>
             <Route path="/vehicles" element={<Vehicles />}/>
+            <Route path="/monitoring" element={<Monitoring />}/>
               {/* <Route path="/vehicles/:id" element={<Vehicle />} /> */}
             {/* </Route> */}
             {/* <Route path="/applications" element={<Applications />}>

@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react"
-import type { Picture } from "./Picture"
+import type { IPicture } from "./Picture"
 
 export interface IVehicleForm{
     type: string,
@@ -22,7 +22,7 @@ export interface IVehicle extends IVehicleForm{
 }
 export interface IVehicleToPictures{
     vehicleId: number,
-    pictures: Picture[]
+    pictures: IPicture[]
 }
 
 export interface IVehicleListProp{

@@ -1,13 +1,8 @@
-import { useEffect } from "react";
 import type { IVehicle, IVehicleForm, IVehicleListProp } from "../../Interfaces/Vehicle";
-import type { Picture } from "../../Interfaces/Picture";
-import { formateDate } from "../../Utils/functions";
 
 export default function VehiclesList({vehicles, vehiclesToPictures, setVehicleId, setVehicleForm}: IVehicleListProp){
     function handleSetVehicle(id: number, vehicleForm: IVehicleForm){
         setVehicleId(id)
-        console.log(id)
-        console.log(vehicleForm)
         setVehicleForm(vehicleForm)
     }
     return <div className="vehicles-list">
@@ -17,7 +12,6 @@ export default function VehiclesList({vehicles, vehiclesToPictures, setVehicleId
             <span>{v.type}</span>
             <span className="purchasedDate">{v.purchasedAt}</span>
             <div className="pictures">
-                {`${console.log(vehiclesToPictures)}`}
                 {vehiclesToPictures?.filter((vtp) => vtp.vehicleId === v.id)[0]?.pictures?.map((p) => <img src={[`${import.meta.env.VITE_APP_BACKEND_API_URL}`,p.path].join("")} alt={p.path} width="40px"></img>)}
             </div>
         </div>

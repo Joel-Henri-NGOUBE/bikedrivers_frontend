@@ -13,3 +13,17 @@ export interface IOffer{
     price: string,
     service: "LOCATION" | "SALE"
 }
+
+export interface IAppliedOffer{
+    title: string,
+    model: string,
+    brand: string,
+    id_offer: number,
+    status: string,
+    state: string,
+    application_date: string
+}
+
+export interface IAppliedOffersProp{
+    appliedOffers: IAppliedOffer[]
+}
