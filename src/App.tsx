@@ -21,7 +21,7 @@ function App() {
             <Route path="/vehicles" element={<Vehicles />}/>
             <Route path="/monitoring" element={<Monitoring />}/>
             <Route path="/applications" element={<Applications />}/>
-            <Route path="/applications/:id/documents" element={<Documents />}/>
+            <Route path="/applications/:applicationId/documents" element={<Documents />}/>
               {/* <Route path="/vehicles/:id" element={<Vehicle />} /> */}
             {/* </Route> */}
             {/* <Route path="/applications" element={<Applications />}>

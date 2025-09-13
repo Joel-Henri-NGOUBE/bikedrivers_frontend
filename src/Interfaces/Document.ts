@@ -9,3 +9,15 @@ export interface IDocument{
 export interface IDocumentProp{
     documents: IDocument[]
 }
+
+export interface IDocumentElements{
+    path: string,
+    state: string,
+    name: string,
+    informations: string,
+    title: string,
+    brand: string,
+    model: string
+    offer_id: number,
+    application_state: string
+}

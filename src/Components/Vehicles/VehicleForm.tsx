@@ -3,7 +3,7 @@ import { formateDate } from "../../Utils/functions"
 import InputLabel from "../InputLabel";
 
 export default function VehicleForm({vehicleForm, setVehicleForm, form, isPictureUploaded, setIsPictureUploaded, vehicleId, setVehicleId, addVehicle, setUploadedPicture}: IVehicleFormProp){
-    function handleUnsetVehicle(id: number, form: IVehicleForm){
+    function handleUnsetVehicle(form: IVehicleForm){
         setVehicleId(0)
         setVehicleForm(form)
     }
@@ -41,7 +41,7 @@ export default function VehicleForm({vehicleForm, setVehicleForm, form, isPictur
             <label htmlFor="file">Date d'achat</label>
             <input type="file" name="file" id="file" onChange={(e) => setUploadedPicture(e.target.files ? e.target.files[0] : null)}/>
         {/* <button className="sendPicture" onClick={() => setIsPictureUploaded(!isPictureUploaded)}>{isPictureUploaded ? "Add picture" : "Hide picture field"}</button> */}
-        <button className="cancelChange" onClick={() => handleUnsetVehicle(0, form)}>Cancel Modification</button>
+        <button className="cancelChange" onClick={() => handleUnsetVehicle(form)}>Cancel Modification</button>
         </div>}
         <button className="addVehicle" onClick={() => addVehicle()}>Add vehicle</button>
         {/* <button className="addPicture" onClick={() => setIsPictureUploaded(!isPictureUploaded)}>{isPictureUploaded ? "Add picture" : "Hide picture field"}</button> */}
