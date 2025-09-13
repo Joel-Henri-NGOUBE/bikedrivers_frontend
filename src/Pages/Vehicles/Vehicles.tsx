@@ -4,6 +4,7 @@ import type { IVehicle, IVehicleForm, IVehicleToPictures } from "../../Interface
 import { useNavigate, type NavigateFunction } from "react-router"
 import { jwtDecode } from "jwt-decode"
 import VehicleForm from "../../Components/Vehicles/VehicleForm"
+import { formateDate } from "../../Utils/functions"
 
 export default function Vehicles(){
 
@@ -17,7 +18,7 @@ export default function Vehicles(){
         brand: "",
         model: "",
         type: "",
-        purchasedAt: "",
+        purchasedAt: formateDate(null),
     }
 
     const [vehicleForm, setVehicleForm] = useState<IVehicleForm>(form)
@@ -97,17 +98,7 @@ export default function Vehicles(){
     useEffect(() => {
         // console.log(token, userId);
         (token && userId) &&
-        fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
-        })
-        .then(res => res.json())
-        .then((res: any) => {
-            setVehicles(res.member);
-        })
+        fetchVehicles(userId)
     }, [userId])
 
     useEffect(() => {
@@ -120,23 +111,20 @@ export default function Vehicles(){
                     })
             .then(res => res?.json())
             .then(res => {
-                setVehiclesToPictures((vtp) => [...vtp, {vehicleId: v.id, pictures: res.member}])
-            })
+                !vehiclesToPictures.length && setVehiclesToPictures((vtp) => [...vtp, {vehicleId: v.id, pictures: []}])
+                setVehiclesToPictures((vtp) => 
+                    vtp.map((v2) => 
+                        (v2.vehicleId === v.id)
+                        ? ({...v2, pictures: res.member})
+                        : v2)
+                )
+                })
+                // console.log(vtp)
             })
         }, [userId, vehicles])
 
-    function addVehicle(vehicleId: number, uploadedPicture: File | null, vehicleForm: IVehicleForm){
-        console.log(vehicleId)
-        if(vehicleId){
-            fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}`].join(""), {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/merge-patch+json",
-                        "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify(vehicleForm)
-            })
-            fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
+    async function fetchVehicles(userId: number){{
+        await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -145,12 +133,27 @@ export default function Vehicles(){
             })
             .then(res => res.json())
             .then((res: any) => {
-                setVehicles(res.member);
+                setVehicles(() => res.member);
             })
+    }}
+
+    async function addVehicle(vehicleId: number, uploadedPicture: File | null, vehicleForm: IVehicleForm){
+        console.log(vehicleId)
+        if(vehicleId){
+            await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}`].join(""), {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/merge-patch+json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(vehicleForm)
+            })
+            fetchVehicles(userId)
+            setVehiclesToPictures((vtp) => [...vtp, {vehicleId: vehicleId, pictures: []}])
             if(uploadedPicture){
                 let formData = new FormData()
                 formData.append('file' ,uploadedPicture)
-                fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}/pictures`].join(""), {
+                await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}/pictures`].join(""), {
                         method: "POST",
                         headers: {
                             // "Content-Type": `multipart/form-data; charset=utf-8; boundary=${Math.random().toString()}`,
@@ -159,20 +162,11 @@ export default function Vehicles(){
                         body: formData
                     })
                 .then(res => res.json())
-                fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
-                })
-                .then(res => res.json())
-                .then((res: any) => {
-                    setVehicles(res.member);
-                })
+
+                fetchVehicles(userId)
             }
         }else{
-            fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
+            await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -180,7 +174,11 @@ export default function Vehicles(){
                     },
                     body: JSON.stringify(vehicleForm)
                 })
-            .then(res => res.json())}
+            .then(res => res.json())
+
+            fetchVehicles(userId)
+
+        }
         // .then((res: {id: number}) => {
         //     setUserId(res.id)
         // })
@@ -201,6 +199,8 @@ export default function Vehicles(){
         addVehicle={() => addVehicle(vehicleId, uploadedPicture, vehicleForm)}
         setUploadedPicture={setUploadedPicture}
         vehicleId={vehicleId}
+        setVehicleId={setVehicleId}
+        form={form}
         />
 
         {/* {`${console.log(vehicleForm)}`} */}

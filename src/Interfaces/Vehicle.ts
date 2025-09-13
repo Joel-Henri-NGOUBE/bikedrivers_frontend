@@ -34,9 +34,11 @@ export interface IVehicleListProp{
 
 export interface IVehicleFormProp{
     vehicleForm: IVehicleForm, 
+    form: IVehicleForm, 
     setVehicleForm: Dispatch<SetStateAction<IVehicleForm>>, 
     isPictureUploaded: boolean, 
     setIsPictureUploaded: Dispatch<SetStateAction<boolean>>,
+    setVehicleId: Dispatch<SetStateAction<number>>,
     setUploadedPicture: Dispatch<SetStateAction<File | null>>,
     vehicleId: number,
     addVehicle: Function
