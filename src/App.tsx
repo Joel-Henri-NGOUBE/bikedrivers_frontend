@@ -6,6 +6,8 @@ import Offer from "./Pages/Offer/Offer";
 import AddOrSetOffer from "./Pages/AddOrSetOffer/AddOrSetOffer";
 import Vehicles from "./Pages/Vehicles/Vehicles";
 import Monitoring from "./Pages/Monitoring/Monitoring";
+import Applications from "./Pages/Applications/Applications";
+import Documents from "./Pages/Documents/Documents";
 
 function App() {
   return  <Routes>
@@ -18,6 +20,8 @@ function App() {
             </Route>
             <Route path="/vehicles" element={<Vehicles />}/>
             <Route path="/monitoring" element={<Monitoring />}/>
+            <Route path="/applications" element={<Applications />}/>
+            <Route path="/applications/:id/documents" element={<Documents />}/>
               {/* <Route path="/vehicles/:id" element={<Vehicle />} /> */}
             {/* </Route> */}
             {/* <Route path="/applications" element={<Applications />}>
