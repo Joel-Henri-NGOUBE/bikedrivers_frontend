@@ -12,11 +12,11 @@ import Documents from "./Pages/Documents/Documents";
 function App() {
   return  <Routes>
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/" element={<LogIn />} />
-            <Route path="/offers" element={<Offers />}/>
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/" element={<Offers />}/>
             <Route path="/offer/:id" element={<Offer />}/>
-            <Route path="/offer/addorset" element={<AddOrSetOffer />}>
-              <Route path="/offer/addorset/:id" element={<AddOrSetOffer />}/>
+            <Route path="/offers" element={<AddOrSetOffer />}>
+              <Route path="/offers/:id" element={<AddOrSetOffer />}/>
             </Route>
             <Route path="/vehicles" element={<Vehicles />}/>
             <Route path="/monitoring" element={<Monitoring />}/>

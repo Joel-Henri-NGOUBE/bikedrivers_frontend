@@ -39,7 +39,7 @@ export default function SignUp(){
                     })
                 })
         .then(res => {
-            (res.status.toString().startsWith("2")) && navigate("/offers")
+            (res.status.toString().startsWith("2")) && navigate("/")
         })
         }
     , [])

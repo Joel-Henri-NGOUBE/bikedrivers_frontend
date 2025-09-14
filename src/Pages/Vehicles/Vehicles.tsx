@@ -52,7 +52,7 @@ export default function Vehicles(){
                 })
         .then(res => {
              if(res.status.toString().startsWith("4")){
-                navigate("/");
+                navigate("/login");
              }
              else{
                 return res.json()

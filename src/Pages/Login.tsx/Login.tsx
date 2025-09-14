@@ -37,7 +37,7 @@ export default function LogIn(){
                     })
                 })
         .then(res => {
-            (res.status.toString().startsWith("2")) && navigate("/offers")
+            (res.status.toString().startsWith("2")) && navigate("/")
         })
         }
     , [])
@@ -60,7 +60,7 @@ export default function LogIn(){
             console.log(res)
             setResponse(res);
             if("token" in res){
-                navigate("/offers")
+                navigate("/")
                 localStorage.setItem("token", res.token)
             }
         })

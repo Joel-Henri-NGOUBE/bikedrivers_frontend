@@ -1,15 +1,31 @@
 import { useEffect, useState } from "react";
 import type { IOffer } from "../../Interfaces/IOffer";
-import { useNavigate, useParams, type NavigateFunction } from "react-router";
+import { Link, useLocation, useNavigate, useParams, type NavigateFunction } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import InputLabel from "../../Components/InputLabel";
 import InputSelect from "../../Components/InputSelect";
 import type { IVehicle } from "../../Interfaces/Vehicle";
 import { getLastSplittedElement } from "../../Utils/functions";
+import type { IRequiredDocument } from "../../Interfaces/RequiredDocuments";
+import RequiredDocuments from "../../Components/RequiredDocuments/RequiredDocuments";
 
 export default function AddOrSetOffer(){
 
+    // location.reload()
+
     const [offer, setOffer] = useState<IOffer | null>(null)
+
+    const [offers, setOffers] = useState<IOffer[]>([])
+
+    const [requiredDocumentsCount, setRequiredDocumentsCount] = useState<number>(1)
+
+    const [requiredDocuments, setRequiredDocuments] = useState<IRequiredDocument[]>([{
+        id: 1,
+        name: "",
+        informations: ""
+    }])
+
+    const location = useLocation()
 
     const [vehicles, setVehicles] = useState<IVehicle[] | null>(null)
 
@@ -49,7 +65,7 @@ export default function AddOrSetOffer(){
                 })
         .then(res => {
              if(res.status.toString().startsWith("4")){
-                navigate("/");
+                navigate("/login");
              }
              else{
                 return res.json()
@@ -62,6 +78,10 @@ export default function AddOrSetOffer(){
     , [])
 
     useEffect(() => {
+            fetchOffers()
+        }, [])
+
+    useEffect(() => {
         (token && id) &&
             fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}`].join(""), {
                 method: "GET",
@@ -69,9 +89,10 @@ export default function AddOrSetOffer(){
                     "Content-Type": "application/json",
                 }
             })
-            .then(res => res.json())
+            .then(res => res.status === 404 && parseInt(id) !== offer?.id ? navigate("/offers") : res.json()
+            )
             .then((res: IOffer) => {
-                // console.log(res)
+                console.log(res)
                 setOffer(res);
                 setFormValues({...formValues,
                     title: res.title,
@@ -80,7 +101,23 @@ export default function AddOrSetOffer(){
                     price: res.price
                 })
             })
-        }, [])
+            !id && setFormValues((fv) => ({...fv, service: "LOCATION"}))
+        }, [location.key])
+
+    useEffect(() => {
+        (token && id) &&
+            fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}/required_documents`].join(""), {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+            .then(res => res.json())
+            .then((res: any) => {
+                console.log(res)
+                setRequiredDocuments(res.member)
+            })
+    }, [location.key])
 
     useEffect(() => {
         // console.log(token, userId);
@@ -94,6 +131,7 @@ export default function AddOrSetOffer(){
         .then(res => res.json())
         .then((res: any) => {
             setVehicles(res.member);
+            // console.log(res.member)
             // console.log(offer)
             // Mettre l'id du vehicule s'il n'y a pas d'offre
             if(offer?.vehicle){
@@ -103,46 +141,129 @@ export default function AddOrSetOffer(){
                 setFormValues({...formValues, vehicle: res.member.filter((v: any) => v.id === vehicleId)})
                 console.log("vehicle set", vehicleId)
             }
+            setVehicleId(res.member[0].id)
         })
     }, [userId, offer?.vehicle])
 
-    function addOrSetOffer(formValues: typeof form, navigate: Function){
+    
+    async function fetchOffers(){
+        await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers`].join(""), {
+                method: "GET",
+            })
+        .then(res => res.json())
+        .then((res: any) =>
+            setOffers(() => res.member)
+        )
+}
+
+    async function addOrSetOffer(formValues: typeof form, navigate: Function, requiredDocuments: IRequiredDocument[], vehicleId: number){
         console.log(userId, vehicleId)
         if(!id){
-            vehicleId && fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/", userId, "/vehicles/", vehicleId,"/offers"].join(""), {
+            if(vehicleId){
+                
+                const offer: IOffer = await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/", userId, "/vehicles/", vehicleId,"/offers"].join(""), {
+                            method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        title: formValues.title,
+                        description: formValues.description,
+                        service: formValues.service,
+                        price: parseInt(formValues.price),
+                        user: `api/users/${userId}`,
+                        vehicle: `api/vehicles/${vehicleId}`,
+                    })
+                })
+                .then(res => {
+                    return res.json()
+                    // res.status === 200 && navigate()
+                })
+
+                requiredDocuments?.forEach((rd) => 
+                rd.name &&
+                fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/", offer.id, "/required_documents"].join(""), {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${token}`
                         },
-                        body: JSON.stringify({
-                            title: formValues.title,
-                            description: formValues.description,
-                            service: formValues.service,
-                            price: formValues.price,
+                        body: JSON.stringify(rd.informations 
+                        ? ({
+                            name: rd.name,
+                            informations: rd.informations,
+                            offer: `api/offers/${offer.id}`
                         })
+                        : ({
+                            name: rd.name,
+                            offer: `api/offers/${offer.id}`
+                        })
+                    )
                     })
-            .then(res => {
-                res.status === 200 && navigate()
-            })
+                .then(res => res.json())
+                )
+                fetchOffers()
+            }
         }
         else{
-            vehicleId && fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/", userId, "/vehicles/", vehicleId, "/offers/", id].join(""), {
-                        method: "PATCH",
-                        headers: {
-                            "Content-Type": "application/merge-patch+json",
-                            "Authorization": `Bearer ${token}`
-                        },
-                        body: JSON.stringify({
-                            title: formValues.title,
-                            description: formValues.description,
-                            service: formValues.service,
-                            price: formValues.price,
-                        })
+            if(vehicleId){
+                fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/", userId, "/vehicles/", vehicleId, "/offers/", id].join(""), {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/merge-patch+json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        title: formValues.title,
+                        description: formValues.description,
+                        service: formValues.service,
+                        price: parseFloat(formValues.price),
                     })
-            .then(res => {
-                res.status === 200 && navigate()
-            })}
+                })
+                .then(res => res.json())
+                requiredDocuments?.forEach((rd) => 
+                    rd.name &&
+                    fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/", id, "/required_documents/", rd.id].join(""), {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/merge-patch+json",
+                                "Authorization": `Bearer ${token}`
+                            },
+                            body: JSON.stringify(rd.informations 
+                            ? ({
+                                name: rd.name,
+                                informations: rd.informations
+                            })
+                            : ({
+                                name: rd.name
+                            })
+                        )
+                        })
+                    .then(res => res.json())
+                    )
+                    fetchOffers()
+                    fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/", id, "/required_documents"].join(""), {
+                                method: "GET",
+                                headers: {
+                                    "Authorization": `Bearer ${token}`
+                                },
+                            })
+                        .then(res => res.json())
+                        .then(res => setRequiredDocuments(res.member))
+            }
+        }
+    }
+
+    async function deleteOffer(offerId: number){
+        fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/", offerId].join(""), {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+        })
+        id && setOffers((o) => o.filter((offer) => offer.id !== offerId))
+        fetchOffers()
     }
 
     return <div className="addorsetoffer">
@@ -186,7 +307,25 @@ export default function AddOrSetOffer(){
         handleChange={(e) => setFormValues({...formValues, price: e.target.value})}
         />
 
-        <button onClick={() => addOrSetOffer(formValues, () => navigate("/offers"))}>Add Offer</button>
+        <RequiredDocuments
+        requiredDocuments={requiredDocuments}
+        setRequiredDocuments={setRequiredDocuments}
+        requiredDocumentsCount={requiredDocumentsCount}
+        setRequiredDocumentsCount={setRequiredDocumentsCount}
+        />
+
+        <button onClick={() => addOrSetOffer(formValues, () => navigate("/"), requiredDocuments, vehicleId)}>Add Offer</button>
+
+        <div className="offers">
+            {offers?.map((o) => <div className="offer-wrapper"><Link to={`/offers/${o.id}`}><div className="offer">
+                <span className="title">{o.title}</span>
+                <span className="title">{o.service}</span>
+                <span className="title">{o.status}</span>
+                <span className="title">{o.price}</span>
+            </div></Link>
+                <button className="delete" onClick={() => deleteOffer(o.id)}>Delete offer</button>
+            </div>)}
+        </div>
 
     </div>
 }
