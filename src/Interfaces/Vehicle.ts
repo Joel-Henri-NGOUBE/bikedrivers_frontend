@@ -27,7 +27,10 @@ export interface IVehicleToPictures{
 
 export interface IVehicleListProp{
     vehicles: IVehicle[],
+    handleDelete: Function
+    // setVehicles: Dispatch<SetStateAction<IVehicle[]>>,
     vehiclesToPictures: IVehicleToPictures[],
+    // setVehiclesToPictures: Dispatch<SetStateAction<IVehicleToPictures[]>>,
     setVehicleId: Dispatch<SetStateAction<number>>,
     setVehicleForm: Dispatch<SetStateAction<IVehicleForm>>,
 }

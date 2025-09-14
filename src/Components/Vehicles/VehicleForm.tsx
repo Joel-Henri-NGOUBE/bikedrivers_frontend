@@ -43,7 +43,7 @@ export default function VehicleForm({vehicleForm, setVehicleForm, form, isPictur
         {/* <button className="sendPicture" onClick={() => setIsPictureUploaded(!isPictureUploaded)}>{isPictureUploaded ? "Add picture" : "Hide picture field"}</button> */}
         <button className="cancelChange" onClick={() => handleUnsetVehicle(form)}>Cancel Modification</button>
         </div>}
-        <button className="addVehicle" onClick={() => addVehicle()}>Add vehicle</button>
+        <button className="addVehicle" onClick={() => addVehicle()}>{vehicleId ? "Set": "Add"} vehicle</button>
         {/* <button className="addPicture" onClick={() => setIsPictureUploaded(!isPictureUploaded)}>{isPictureUploaded ? "Add picture" : "Hide picture field"}</button> */}
     </div>
 }

@@ -92,7 +92,7 @@ export default function Vehicles(){
             })
         }, [userId, vehicles])
 
-    async function fetchVehicles(userId: number){{
+    async function fetchVehicles(userId: number){
         await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
             method: "GET",
             headers: {
@@ -104,7 +104,7 @@ export default function Vehicles(){
             .then((res: any) => {
                 setVehicles(() => res.member);
             })
-    }}
+    }
 
     async function addVehicle(vehicleId: number, uploadedPicture: File | null, vehicleForm: IVehicleForm){
         console.log(vehicleId)
@@ -158,6 +158,16 @@ export default function Vehicles(){
     //     setVehicleForm(vehicleForm)
     // }
 
+    async function handleDelete(vehicleId: number){
+        setVehicles((v) => v.filter((vehicle) => vehicle.id !== vehicleId));
+        await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}`].join(""), {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+            })
+    }
+
     return <div className="vehicles">
 
         <VehicleForm 
@@ -172,10 +182,10 @@ export default function Vehicles(){
         form={form}
         />
 
-        {/* {`${console.log(vehicleForm)}`} */}
         <VehiclesList 
         vehicles={vehicles}
         vehiclesToPictures={vehiclesToPictures}
+        handleDelete={handleDelete}
         setVehicleId={setVehicleId}
         setVehicleForm={setVehicleForm}
         />
