@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, type NavigateFunction } from "react-router";
 import type { IOfferElements, IOffersToApplications } from "../../Interfaces/IOffer";
 import type { IApplication } from "../../Interfaces/Application";
+import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions";
+import AdminHeader from "../../Components/Headers/AdminHeader";
+import UserHeader from "../../Components/Headers/UserHeader";
 
 export default function Applications(){
     // Faire une requête vers offers qui me renvoie les offres en passant par les véhicules de l'utilisateur
@@ -82,6 +85,7 @@ export default function Applications(){
     }, [offersElements, offersToApplications.length])
     
     return <div className="applications-page">
+        {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
         {offersToApplications.map((ota) => <div className="offer">
             <span className="title">{ota.offer.title}</span>
             <span className="type">{ota.offer.type}</span>

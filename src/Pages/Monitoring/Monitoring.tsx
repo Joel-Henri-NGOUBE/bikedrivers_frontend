@@ -5,6 +5,9 @@ import Documents from "../../Components/Monitoring/Documents"
 import type { IDocument } from "../../Interfaces/Document"
 import AppliedOffers from "../../Components/Monitoring/AppliedOffers"
 import type { IAppliedOffer } from "../../Interfaces/IOffer"
+import AdminHeader from "../../Components/Headers/AdminHeader"
+import UserHeader from "../../Components/Headers/UserHeader"
+import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions"
 
 export default function Monitoring(){
 
@@ -103,6 +106,8 @@ export default function Monitoring(){
     }
 
     return <div className="monitoring">
+        {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
+        
         <div className="addDocument">
             <span>Add document</span>
             <input type="file" onChange={(e) => setUploadedDocument(e.target.files ? e.target.files[0]: null)}/>

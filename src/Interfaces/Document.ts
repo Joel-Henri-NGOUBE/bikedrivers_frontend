@@ -21,3 +21,8 @@ export interface IDocumentElements{
     offer_id: number,
     application_state: string
 }
+
+export interface IAssociateDocumentsId{
+    documentId: number,
+    requiredDocumentId: number,
+}

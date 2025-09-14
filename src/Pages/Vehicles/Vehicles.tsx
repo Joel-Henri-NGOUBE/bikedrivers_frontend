@@ -5,6 +5,9 @@ import { useNavigate, type NavigateFunction } from "react-router"
 import { jwtDecode } from "jwt-decode"
 import VehicleForm from "../../Components/Vehicles/VehicleForm"
 import { formateDate } from "../../Utils/functions"
+import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions"
+import AdminHeader from "../../Components/Headers/AdminHeader"
+import UserHeader from "../../Components/Headers/UserHeader"
 
 export default function Vehicles(){
 
@@ -169,6 +172,9 @@ export default function Vehicles(){
     }
 
     return <div className="vehicles">
+
+        {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
+        
 
         <VehicleForm 
         vehicleForm={vehicleForm}

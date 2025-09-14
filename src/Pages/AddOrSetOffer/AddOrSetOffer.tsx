@@ -8,6 +8,9 @@ import type { IVehicle } from "../../Interfaces/Vehicle";
 import { getLastSplittedElement } from "../../Utils/functions";
 import type { IRequiredDocument } from "../../Interfaces/RequiredDocuments";
 import RequiredDocuments from "../../Components/RequiredDocuments/RequiredDocuments";
+import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions";
+import AdminHeader from "../../Components/Headers/AdminHeader";
+import UserHeader from "../../Components/Headers/UserHeader";
 
 export default function AddOrSetOffer(){
 
@@ -267,6 +270,9 @@ export default function AddOrSetOffer(){
     }
 
     return <div className="addorsetoffer">
+
+        {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
+
         <InputLabel 
         label="Title"
         placeholder=""

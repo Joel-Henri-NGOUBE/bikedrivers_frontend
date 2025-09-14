@@ -60,12 +60,13 @@ export default function Documents(){
             .then(res => res.json())
             .then((res: IDocumentElements[]) => {
                 setDocumentsElements(res);
+                console.log(res)
             })
     }}
 
-    function handleAccept(offerId: number, applicationId: string | undefined){
+    async function handleAccept(offerId: number, applicationId: string | undefined){
         if(offerId && applicationId){
-            fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${offerId}/applications/${applicationId}`].join(""), {
+            await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${offerId}/applications/${applicationId}`].join(""), {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/merge-patch+json",
@@ -79,9 +80,9 @@ export default function Documents(){
         }
     }
 
-    function handleReject(offerId: number, applicationId: string | undefined){
+    async function handleReject(offerId: number, applicationId: string | undefined){
         if(offerId && applicationId){
-            fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${offerId}/applications/${applicationId}`].join(""), {
+            await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${offerId}/applications/${applicationId}`].join(""), {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/merge-patch+json",
@@ -116,8 +117,12 @@ export default function Documents(){
                     <img src="/file.png" alt="file" width="35px" />
                     <span className="path">{getLastSplittedElement(de.path)}</span>
                     <span className="state">{de.state}</span>
+                    <div className="actions">
+                    </div>
                 </div>
             </a>
+            {/* <img src="/valid.svg" alt="valid" width="30px" onClick={() => handleValidateDocument()}/>
+            <img src="/invalid.png" alt="invalid" width="30px" onClick={() => handleInvalidateDocument()}/> */}
         </div>)}
         <button className="accept" onClick={() => handleAccept(documentsElements[0]?.offer_id, applicationId)}>Validate the application</button>
         <button className="deny" onClick={() => handleReject(documentsElements[0]?.offer_id, applicationId)}>Reject the application</button>

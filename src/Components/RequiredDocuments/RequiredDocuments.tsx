@@ -12,7 +12,7 @@ export default function RequiredDocuments({requiredDocumentsCount, setRequiredDo
         }])
         console.log(requiredDocuments)
     }
-    return <div className="requiredDocument">
+    return <div className="requiredDocuments">
         {requiredDocuments.map((rd) => 
             <RequiredDocument
             name={rd.name}

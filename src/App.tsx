@@ -8,6 +8,7 @@ import Vehicles from "./Pages/Vehicles/Vehicles";
 import Monitoring from "./Pages/Monitoring/Monitoring";
 import Applications from "./Pages/Applications/Applications";
 import Documents from "./Pages/Documents/Documents";
+import PrivateRoute from "./Components/PrivateRoutes/PrivateRoutes";
 
 function App() {
   return  <Routes>
@@ -15,13 +16,16 @@ function App() {
             <Route path="/login" element={<LogIn />} />
             <Route path="/" element={<Offers />}/>
             <Route path="/offer/:id" element={<Offer />}/>
-            <Route path="/offers" element={<AddOrSetOffer />}>
-              <Route path="/offers/:id" element={<AddOrSetOffer />}/>
-            </Route>
-            <Route path="/vehicles" element={<Vehicles />}/>
             <Route path="/monitoring" element={<Monitoring />}/>
-            <Route path="/applications" element={<Applications />}/>
-            <Route path="/applications/:applicationId/documents" element={<Documents />}/>
+             
+            <Route element={<PrivateRoute />}>
+              <Route path="/vehicles" element={<Vehicles />}/>
+              <Route path="/offers" element={<AddOrSetOffer />}>
+                <Route path="/offers/:id" element={<AddOrSetOffer />}/>
+              </Route>
+              <Route path="/applications" element={<Applications />}/>
+              <Route path="/applications/:applicationId/documents" element={<Documents />}/>
+            </Route>
               {/* <Route path="/vehicles/:id" element={<Vehicle />} /> */}
             {/* </Route> */}
             {/* <Route path="/applications" element={<Applications />}>

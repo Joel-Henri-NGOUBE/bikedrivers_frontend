@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 import type { IOffer } from "../../Interfaces/IOffer"
-import OffersComponent from "../../Components/Offers/OffersComponent"
+import { Link } from "react-router"
+import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions"
+import AdminHeader from "../../Components/Headers/AdminHeader"
+import UserHeader from "../../Components/Headers/UserHeader"
 
 export default function Offers(){
 
@@ -19,6 +22,16 @@ export default function Offers(){
             setOffers(res.member);
         })
     }, [])
-    return <OffersComponent offers={offers} />
+    return <div className="offers">
+        {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}        
+        {offers.map(offer => <Link to={`/offer/${offer.id}`}><div className="offer" key={offer.id}>
+            <span className="title">{offer.title}</span>
+            <span className="date">{new Date(offer.createdAt).toString()}</span>
+            <p className="description">{offer.description}</p>
+            <span className="price">{offer.price} €</span>
+            <span className="service">{offer.service}</span>
+        </div></Link>)
+        }
+    </div>
 
 }
