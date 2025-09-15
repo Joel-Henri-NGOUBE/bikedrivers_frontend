@@ -3,6 +3,9 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams, type NavigateFunction } from "react-router"
 import type { IDocumentElements } from "../../Interfaces/Document"
 import { getLastSplittedElement } from "../../Utils/functions"
+import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions"
+import AdminHeader from "../../Components/Headers/AdminHeader"
+import UserHeader from "../../Components/Headers/UserHeader"
 
 export default function Documents(){
 
@@ -18,7 +21,7 @@ export default function Documents(){
 
     useEffect(() => {
         token
-        &&
+        ?
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/id"].join(""), {
                     method: "POST",
                     headers: {
@@ -40,6 +43,7 @@ export default function Documents(){
         .then((res: {id: number}) => {
             setUserId(res.id)
         })
+        : navigate("/login")
         }
     , [])
 
@@ -97,6 +101,8 @@ export default function Documents(){
     }
 
     return <div className="documents">
+        {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
+        
         {/* {application_id} */}
         <div className="head">
             <span >

@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import Company from "../Company/Company";
 // import "./header.css"
 import { Link, useLocation, useNavigate, type NavigateFunction } from "react-router";
@@ -5,6 +6,8 @@ import { Link, useLocation, useNavigate, type NavigateFunction } from "react-rou
 export default function UserHeader(){
     const location = useLocation()
     const path = location.pathname
+
+    const token = localStorage.getItem("token")
 
     const navigate: NavigateFunction = useNavigate()
     /**
@@ -25,9 +28,17 @@ export default function UserHeader(){
         />
         <div className="links">
             <Link to="/" style={path === "/" ? {color: "var(--green-500)"} : {}}>Home</Link>
-            <Link to="/monitoring" style={path === "/monitoring" ? {color: "var(--green-500)"} : {}}>Monitoring</Link>
-            <Link to="/settings" style={path === "/monitoring" ? {color: "var(--green-500)"} : {}}>Settings</Link>
-            <a href="" onClick={(e) => {handleLogout(e)}}>logout</a>
+            {(token && (jwtDecode(token) as any).username) 
+            ?  <>
+                <Link to="/monitoring" style={path === "/monitoring" ? {color: "var(--green-500)"} : {}}>Monitoring</Link>
+                <Link to="/settings" style={path === "/settings" ? {color: "var(--green-500)"} : {}}>Settings</Link>
+                <a href="" onClick={(e) => {handleLogout(e)}}>logout</a>
+            </>
+            : <>
+                <Link to="/signup" style={path === "/signup" ? {color: "var(--green-500)"} : {}}>Sign In</Link>
+                <Link to="/login" style={path === "/login" ? {color: "var(--green-500)"} : {}}>Log In</Link>
+            </>}
+
         </div>
     </div>
 }

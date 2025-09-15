@@ -23,7 +23,7 @@ export default function Applications(){
 
     useEffect(() => {
         token
-        &&
+        ?
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/id"].join(""), {
                     method: "POST",
                     headers: {
@@ -45,7 +45,8 @@ export default function Applications(){
         .then((res: {id: number}) => {
             setUserId(res.id)
         })
-        }
+        : navigate("/login")
+    }
     , [])
 
     useEffect(() => {

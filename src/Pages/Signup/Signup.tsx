@@ -35,7 +35,7 @@ export default function SignUp(){
                         "Authorization": `Bearer ${token}`
                     },
                     body: JSON.stringify({
-                        email: (jwtDecode(token) as any).username
+                        mail: (jwtDecode(token) as any).username
                     })
                 })
         .then(res => {

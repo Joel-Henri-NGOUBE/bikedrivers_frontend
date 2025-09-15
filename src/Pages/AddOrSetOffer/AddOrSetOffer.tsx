@@ -55,7 +55,7 @@ export default function AddOrSetOffer(){
     
     useEffect(() => {
         token
-        &&
+        ?
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/id"].join(""), {
                     method: "POST",
                     headers: {
@@ -77,6 +77,7 @@ export default function AddOrSetOffer(){
         .then((res: {id: number}) => {
             setUserId(res.id)
         })
+        : navigate("/login")
         }
     , [])
 
