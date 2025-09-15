@@ -130,6 +130,7 @@ export default function AddOrSetOffer(){
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             }
         })
         .then(res => res.json())
@@ -163,8 +164,8 @@ export default function AddOrSetOffer(){
     async function addOrSetOffer(formValues: typeof form, navigate: Function, requiredDocuments: IRequiredDocument[], vehicleId: number){
         console.log(userId, vehicleId)
         if(!id){
-            if(vehicleId){
-                
+            const isANameGiven = requiredDocuments.reduce((acc, cur) => acc + cur.name, "")
+            if(vehicleId && isANameGiven){
                 const offer: IOffer = await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/", userId, "/vehicles/", vehicleId,"/offers"].join(""), {
                             method: "POST",
                     headers: {
@@ -175,7 +176,7 @@ export default function AddOrSetOffer(){
                         title: formValues.title,
                         description: formValues.description,
                         service: formValues.service,
-                        price: parseInt(formValues.price),
+                        price: parseFloat(formValues.price),
                         user: `api/users/${userId}`,
                         vehicle: `api/vehicles/${vehicleId}`,
                     })
@@ -260,7 +261,7 @@ export default function AddOrSetOffer(){
     }
 
     async function deleteOffer(offerId: number){
-        fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/", offerId].join(""), {
+        await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/", offerId].join(""), {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`
