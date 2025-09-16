@@ -5,6 +5,7 @@ import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/function
 import AdminHeader from "../../Components/Headers/AdminHeader"
 import UserHeader from "../../Components/Headers/UserHeader"
 import "./offers.css"
+import { sliceText } from "../../Utils/functions"
 
 export default function Offers(){
 
@@ -26,14 +27,20 @@ export default function Offers(){
     return <div className="offers-page">
         {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}  
         <div className="content">
-        {offers.map(offer => <Link to={`/offer/${offer.id}`}><div className="offer" key={offer.id}>
-            <span className="title">{offer.title}</span>
-            <span className="date">{new Date(offer.createdAt).toString()}</span>
-            <p className="description">{offer.description}</p>
-            <span className="price">{offer.price} €</span>
-            <span className="service">{offer.service}</span>
-        </div></Link>)
-        }
+        <span className="pub">Welcome to <b>BikeDrivers</b>. Find out a selection of all types of bikes for sale or for rent</span>
+        <div className="offers">
+            <div className="offers-wrapper">
+                {offers.map(offer => <Link to={`/offer/${offer.id}`}><div className="offer" key={offer.id}>
+                    <span className="date">{new Date(offer.createdAt).toLocaleDateString("fr-FR", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/").join("/")}</span>
+                    <span className="title">{offer.title}</span>
+                    <p className="description">{sliceText(offer.description, 100)}</p>
+                    <div>
+                        <span className="service" style={offer.service === "LOCATION" ? {color: 'var(--green-500)', borderColor: 'var(--green-500)'} : {color: 'var(--blue-300)', borderColor: 'var(--blue-300)'}}>{offer.service}</span>
+                        <span className="price">{offer.price} €</span>
+                    </div>
+                </div></Link>)}
+            </div>
+        </div>
         </div>
     </div>
 

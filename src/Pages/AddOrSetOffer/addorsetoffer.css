@@ -1,2 +1,93 @@
 @import "../pages.css";
 
+.addorsetoffer-page .content{
+    /* display: flex; */
+    padding: 0 15%;
+    justify-content: space-between;
+    flex-direction: row;
+    height: calc(100% - 80px);
+}
+
+.addorsetoffer-page .requiredDocument, .addorsetoffer-page .requiredDocuments{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.addorsetoffer-page .offers{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    row-gap: 20px;
+    height: 70%;
+    width: max-content;
+    overflow-y: auto;
+}
+
+.addorsetoffer-page .offer .title{
+    align-self: center;
+    font-weight: var(--h4-semibold-weight);
+}
+
+.addorsetoffer-page .offer .title::first-letter{
+    text-transform: capitalize;
+}
+
+.addorsetoffer-page .offer-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    row-gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--white);
+}
+
+.addorsetoffer-page .content a{
+    /* all: unset; */
+}
+
+
+.addorsetoffer-page .delete{
+    align-self: flex-end;
+}
+
+.addorsetoffer-page .offer .top{
+    display: flex;
+    /* flex-direction:; */
+    justify-content: space-between;
+}
+
+.addorsetoffer-page .offer{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.addorsetoffer-page .inputlabel{
+    width: 300px;
+}
+
+.addorsetoffer-page .content .inputs{
+    display: flex;
+    flex-direction: column;
+    height: 70%;
+    width: max-content;
+    /* overflow-x: visible; */
+    overflow: auto;
+}
+
+.addorsetoffer-page .inputs button{
+    align-self: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .addorsetoffer-page .content{
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        row-gap: 60px;
+    }
+}

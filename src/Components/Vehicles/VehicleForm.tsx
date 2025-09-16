@@ -7,7 +7,7 @@ export default function VehicleForm({vehicleForm, setVehicleForm, form, isPictur
         setVehicleId(0)
         setVehicleForm(form)
     }
-    return <div className="vehicles">
+    return <div className="vehicle-form">
         <InputLabel 
         label="Type"
         placeholder="Voiture"
@@ -37,12 +37,12 @@ export default function VehicleForm({vehicleForm, setVehicleForm, form, isPictur
             <input type="date" name="date" id="date" placeholder="19/06/2026" value={formateDate(vehicleForm.purchasedAt)} onChange={(e) => setVehicleForm((vf: IVehicleForm) => ({...vf, purchasedAt: e.target.value}))}/>
         </div>
 
-        {vehicleId && <div className="imageField">
-            <label htmlFor="file">Date d'achat</label>
+        {vehicleId ? <div className="imageField">
+            <label htmlFor="file">Image</label>
             <input type="file" name="file" id="file" onChange={(e) => setUploadedPicture(e.target.files ? e.target.files[0] : null)}/>
         {/* <button className="sendPicture" onClick={() => setIsPictureUploaded(!isPictureUploaded)}>{isPictureUploaded ? "Add picture" : "Hide picture field"}</button> */}
         <button className="cancelChange" onClick={() => handleUnsetVehicle(form)}>Cancel Modification</button>
-        </div>}
+        </div> : ""}
         <button className="addVehicle" onClick={() => addVehicle()}>{vehicleId ? "Set": "Add"} vehicle</button>
         {/* <button className="addPicture" onClick={() => setIsPictureUploaded(!isPictureUploaded)}>{isPictureUploaded ? "Add picture" : "Hide picture field"}</button> */}
     </div>
