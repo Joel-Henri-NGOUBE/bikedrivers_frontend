@@ -10,6 +10,7 @@ import InputSelect from "../../Components/InputSelect";
 import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions";
 import AdminHeader from "../../Components/Headers/AdminHeader";
 import UserHeader from "../../Components/Headers/UserHeader";
+import "./offer.css"
 
 export default function Offer(){
 
@@ -156,32 +157,34 @@ export default function Offer(){
 
     // function associateDocuments(requiredDocumentsCount, )
 
-    return <div className="offer" key={offer?.id}>
+    return <div className="offer-page" key={offer?.id}>
         {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
         {/* {`${console.log(jwtDecode(token ? token : ""))}`}
         {`Apparais`} */}
-        <div className="top">
-            <span className="title">{offer?.title}</span>
-            <span className="date">{offer && new Date(offer.createdAt).toString()}</span>
-            <p className="description">{offer?.description}</p>
-            <span className="price">{offer?.price} €</span>
-            <span className="service">{offer?.service}</span>
-            <button onClick={() => {}} className="apply">{hasNotApplied ? "Apply to offer" : "Already applied"}</button>
-        </div>
-        { hasNotApplied && <div className="requiredDocuments">
-            {requiredDocuments?.map((rd) => <div className="requiredDocument">
-                <label htmlFor="name">{rd.name}</label>
-                <p className="informations">{rd.informations}</p>
-                {documents.map((d) => <div className="document" onClick={() => hasNotApplied && setAssociateDocumentsId((adi) => adi.map((di) => di.requiredDocumentId === rd.id ? ({...di, documentId: d.id}) : di))}>
-                    <img src="/file.png" alt={getLastSplittedElement(d.path)} width="35px"/>
-                    <span className="path">{getLastSplittedElement(d.path)}</span>
-                </div>
-                )}
-            </div>)}
-            <button className="sendApplication" onClick={() => sendApplication(associateDocumentsId, offer?.id)}>Send application</button>
-        </div>}
-        <div className="pictures">
-            {pictures.map(p => <img src={[`${import.meta.env.VITE_APP_BACKEND_API_URL}`,p.path].join("")} alt={p.path}></img>)}
+        <div className="content">
+            <div className="top">
+                <span className="title">{offer?.title}</span>
+                <span className="date">{offer && new Date(offer.createdAt).toString()}</span>
+                <p className="description">{offer?.description}</p>
+                <span className="price">{offer?.price} €</span>
+                <span className="service">{offer?.service}</span>
+                <button onClick={() => {}} className="apply">{hasNotApplied ? "Apply to offer" : "Already applied"}</button>
+            </div>
+            { hasNotApplied && <div className="requiredDocuments">
+                {requiredDocuments?.map((rd) => <div className="requiredDocument">
+                    <label htmlFor="name">{rd.name}</label>
+                    <p className="informations">{rd.informations}</p>
+                    {documents.map((d) => <div className="document" onClick={() => hasNotApplied && setAssociateDocumentsId((adi) => adi.map((di) => di.requiredDocumentId === rd.id ? ({...di, documentId: d.id}) : di))}>
+                        <img src="/file.png" alt={getLastSplittedElement(d.path)} width="35px"/>
+                        <span className="path">{getLastSplittedElement(d.path)}</span>
+                    </div>
+                    )}
+                </div>)}
+                <button className="sendApplication" onClick={() => sendApplication(associateDocumentsId, offer?.id)}>Send application</button>
+            </div>}
+            <div className="pictures">
+                {pictures.map(p => <img src={[`${import.meta.env.VITE_APP_BACKEND_API_URL}`,p.path].join("")} alt={p.path}></img>)}
+            </div>
         </div>
     </div>
 }

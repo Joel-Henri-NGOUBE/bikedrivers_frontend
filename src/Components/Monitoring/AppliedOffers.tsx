@@ -1,12 +1,21 @@
 import type { IAppliedOffersProp } from "../../Interfaces/IOffer";
+import { formateDate } from "../../Utils/functions";
 
 export default function AppliedOffers({appliedOffers}: IAppliedOffersProp){
     return <div className="appliedOffers">
-        {appliedOffers?.map((ao) => <div className="appliedOffer">
-            <span className="title">{ao.title}</span>
-            <span className="brand-model">{`${ao.brand} ${ao.brand}`}</span>
-            <span className="state">{ao.state}</span>
-            <span className="date">{ao.application_date}</span></div>
-            )}
+        <h2>Applied Offers</h2>
+        <div className="applied-wrapper">
+            {appliedOffers?.map((ao) => <div className="appliedOffer">
+                <div className="top">
+                    <span className="brand-model">{`${ao.brand} ${ao.model.toUpperCase()}`}</span>
+                    <span className="date">{new Date(ao.application_date).toLocaleDateString("fr-FR", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/").join("/")}</span>
+                </div>
+                <div className="bottom">
+                    <span className="title">{ao.title}</span>
+                    <span className="state" style={ao.state === "ACCEPTED" ? {color: 'var(--green-500)', borderColor: 'var(--green-500)'} : (ao.state === "REJECTED" ? {color: 'var(--red-400)', borderColor: 'var(--red-400)'} : {})}>{ao.state}</span>
+                </div>
+                </div>
+                )}
+        </div>
     </div>
 }

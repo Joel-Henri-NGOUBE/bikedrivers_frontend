@@ -8,6 +8,7 @@ import { formateDate } from "../../Utils/functions"
 import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions"
 import AdminHeader from "../../Components/Headers/AdminHeader"
 import UserHeader from "../../Components/Headers/UserHeader"
+import "./vehicles.css"
 
 export default function Vehicles(){
 
@@ -172,29 +173,30 @@ export default function Vehicles(){
             })
     }
 
-    return <div className="vehicles">
+    return <div className="vehicles-page">
 
         {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
         
+        <div className="content">
+            <VehicleForm 
+            vehicleForm={vehicleForm}
+            setVehicleForm={setVehicleForm}
+            isPictureUploaded={isPictureUploaded}
+            setIsPictureUploaded={setIsPictureUploaded}
+            addVehicle={() => addVehicle(vehicleId, uploadedPicture, vehicleForm)}
+            setUploadedPicture={setUploadedPicture}
+            vehicleId={vehicleId}
+            setVehicleId={setVehicleId}
+            form={form}
+            />
 
-        <VehicleForm 
-        vehicleForm={vehicleForm}
-        setVehicleForm={setVehicleForm}
-        isPictureUploaded={isPictureUploaded}
-        setIsPictureUploaded={setIsPictureUploaded}
-        addVehicle={() => addVehicle(vehicleId, uploadedPicture, vehicleForm)}
-        setUploadedPicture={setUploadedPicture}
-        vehicleId={vehicleId}
-        setVehicleId={setVehicleId}
-        form={form}
-        />
-
-        <VehiclesList 
-        vehicles={vehicles}
-        vehiclesToPictures={vehiclesToPictures}
-        handleDelete={handleDelete}
-        setVehicleId={setVehicleId}
-        setVehicleForm={setVehicleForm}
-        />
+            <VehiclesList 
+            vehicles={vehicles}
+            vehiclesToPictures={vehiclesToPictures}
+            handleDelete={handleDelete}
+            setVehicleId={setVehicleId}
+            setVehicleForm={setVehicleForm}
+            />
+        </div>
     </div>
 }

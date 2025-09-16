@@ -4,6 +4,7 @@ import { Link } from "react-router"
 import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions"
 import AdminHeader from "../../Components/Headers/AdminHeader"
 import UserHeader from "../../Components/Headers/UserHeader"
+import "./offers.css"
 
 export default function Offers(){
 
@@ -22,8 +23,9 @@ export default function Offers(){
             setOffers(res.member);
         })
     }, [])
-    return <div className="offers">
-        {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}        
+    return <div className="offers-page">
+        {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}  
+        <div className="content">
         {offers.map(offer => <Link to={`/offer/${offer.id}`}><div className="offer" key={offer.id}>
             <span className="title">{offer.title}</span>
             <span className="date">{new Date(offer.createdAt).toString()}</span>
@@ -32,6 +34,7 @@ export default function Offers(){
             <span className="service">{offer.service}</span>
         </div></Link>)
         }
+        </div>
     </div>
 
 }

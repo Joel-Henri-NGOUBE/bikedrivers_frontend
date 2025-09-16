@@ -11,6 +11,7 @@ import RequiredDocuments from "../../Components/RequiredDocuments/RequiredDocume
 import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions";
 import AdminHeader from "../../Components/Headers/AdminHeader";
 import UserHeader from "../../Components/Headers/UserHeader";
+import "./addorsetoffer.css"
 
 export default function AddOrSetOffer(){
 
@@ -271,68 +272,71 @@ export default function AddOrSetOffer(){
         fetchOffers()
     }
 
-    return <div className="addorsetoffer">
+    return <div className="addorsetoffer-page">
 
         {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
 
-        <InputLabel 
-        label="Title"
-        placeholder=""
-        type=""
-        inputValue={formValues.title}
-        handleChange={(e) => setFormValues({...formValues, title: e.target.value})}
-        />
+        <div className="content">
 
-        <InputLabel 
-        label="Description"
-        placeholder=""
-        type=""
-        inputValue={formValues.description}
-        handleChange={(e) => setFormValues({...formValues, description: e.target.value})}
-        />
+            <InputLabel 
+            label="Title"
+            placeholder=""
+            type=""
+            inputValue={formValues.title}
+            handleChange={(e) => setFormValues({...formValues, title: e.target.value})}
+            />
 
-        <div className="inputselect">
-            <label htmlFor="vehicle">Vehicle</label>
-            <select name="vehicle" id="vehicle" value={formValues.vehicle} onChange={(e) => setFormValues({...formValues, vehicle: e.target.value})}>
-                {/* Définir vehicle ID pour chaque option */}
-                {vehicles?.map((v, index) => {
-                    return <option value={`${v.model.toUpperCase()} ${v.brand.toUpperCase()}`} key={index} onChange={() => {setVehicleId(v.id); console.log(v.id) }}>{`${v.model.toUpperCase()} ${v.brand.toUpperCase()}`}</option>})}
-            </select>
-        </div>
+            <InputLabel 
+            label="Description"
+            placeholder=""
+            type=""
+            inputValue={formValues.description}
+            handleChange={(e) => setFormValues({...formValues, description: e.target.value})}
+            />
 
-        <InputSelect
-        label="Service"
-        options={["LOCATION", "SALE"]}
-        inputValue={formValues.service}
-        handleChange={(e) => setFormValues({...formValues, service: e.target.value})}
-        />
+            <div className="inputselect">
+                <label htmlFor="vehicle">Vehicle</label>
+                <select name="vehicle" id="vehicle" value={formValues.vehicle} onChange={(e) => setFormValues({...formValues, vehicle: e.target.value})}>
+                    {/* Définir vehicle ID pour chaque option */}
+                    {vehicles?.map((v, index) => {
+                        return <option value={`${v.model.toUpperCase()} ${v.brand.toUpperCase()}`} key={index} onChange={() => {setVehicleId(v.id); console.log(v.id) }}>{`${v.model.toUpperCase()} ${v.brand.toUpperCase()}`}</option>})}
+                </select>
+            </div>
 
-        <InputLabel 
-        label="Price"
-        placeholder="Insert how much your service costs"
-        type="number"
-        inputValue={formValues.price}
-        handleChange={(e) => setFormValues({...formValues, price: e.target.value})}
-        />
+            <InputSelect
+            label="Service"
+            options={["LOCATION", "SALE"]}
+            inputValue={formValues.service}
+            handleChange={(e) => setFormValues({...formValues, service: e.target.value})}
+            />
 
-        <RequiredDocuments
-        requiredDocuments={requiredDocuments}
-        setRequiredDocuments={setRequiredDocuments}
-        requiredDocumentsCount={requiredDocumentsCount}
-        setRequiredDocumentsCount={setRequiredDocumentsCount}
-        />
+            <InputLabel 
+            label="Price"
+            placeholder="Insert how much your service costs"
+            type="number"
+            inputValue={formValues.price}
+            handleChange={(e) => setFormValues({...formValues, price: e.target.value})}
+            />
 
-        <button onClick={() => addOrSetOffer(formValues, () => navigate("/"), requiredDocuments, vehicleId)}>Add Offer</button>
+            <RequiredDocuments
+            requiredDocuments={requiredDocuments}
+            setRequiredDocuments={setRequiredDocuments}
+            requiredDocumentsCount={requiredDocumentsCount}
+            setRequiredDocumentsCount={setRequiredDocumentsCount}
+            />
 
-        <div className="offers">
-            {offers?.map((o) => <div className="offer-wrapper"><Link to={`/offers/${o.id}`}><div className="offer">
-                <span className="title">{o.title}</span>
-                <span className="title">{o.service}</span>
-                <span className="title">{o.status}</span>
-                <span className="title">{o.price}</span>
-            </div></Link>
-                <button className="delete" onClick={() => deleteOffer(o.id)}>Delete offer</button>
-            </div>)}
+            <button onClick={() => addOrSetOffer(formValues, () => navigate("/"), requiredDocuments, vehicleId)}>Add Offer</button>
+
+            <div className="offers">
+                {offers?.map((o) => <div className="offer-wrapper"><Link to={`/offers/${o.id}`}><div className="offer">
+                    <span className="title">{o.title}</span>
+                    <span className="title">{o.service}</span>
+                    <span className="title">{o.status}</span>
+                    <span className="title">{o.price}</span>
+                </div></Link>
+                    <button className="delete" onClick={() => deleteOffer(o.id)}>Delete offer</button>
+                </div>)}
+            </div>
         </div>
 
     </div>

@@ -3,6 +3,8 @@ import InputLabel from "../../Components/InputLabel";
 import type { TLogin } from "../../Interfaces/APIResponses";
 import { Link, useNavigate, type NavigateFunction } from "react-router";
 import { jwtDecode } from "jwt-decode";
+import Company from "../../Components/Company/Company";
+import "../authenticate.css"
 
 export default function LogIn(){
 
@@ -66,26 +68,35 @@ export default function LogIn(){
         })
     }
 
-    return <div className="login">
+    return <div className="login-page">
+        <div className="wrapper">
+            <Company
+                svg="/Bikedrivers-blue.svg"
+                length="70px"
+            />
+            <h2>Log In</h2>
+            <div className="inputs">
+                <InputLabel
+                label="Mail"
+                placeholder="ambroisegenevillers@gmail.com"
+                type="text"
+                inputValue={formValues.mail}
+                handleChange={(e) => setFormValues({...formValues, mail: e.target.value})}
+                />
 
-        <InputLabel
-        label="Mail"
-        placeholder="ambroisegenevillers@gmail.com"
-        type="text"
-        inputValue={formValues.mail}
-        handleChange={(e) => setFormValues({...formValues, mail: e.target.value})}
-        />
+                <InputLabel
+                label="Password"
+                placeholder="Enter your password"
+                type="password"
+                inputValue={formValues.password}
+                handleChange={(e) => setFormValues({...formValues, password: e.target.value})}
+                />
+            
+            </div>
 
-        <InputLabel
-        label="Password"
-        placeholder="Enter your password"
-        type="password"
-        inputValue={formValues.password}
-        handleChange={(e) => setFormValues({...formValues, password: e.target.value})}
-        />
+            <Link to="/signup">Not yet an account ? Sign up</Link>
 
-        <Link to="/signup">Not yet an account ? Sign in</Link>
-
-        <button onClick={() => handleLogIn(formValues)}>Log in</button>
+            <button onClick={() => handleLogIn(formValues)}>Log in</button>
+        </div>
     </div>
 }

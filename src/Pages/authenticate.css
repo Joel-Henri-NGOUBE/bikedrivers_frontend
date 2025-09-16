@@ -1,0 +1,56 @@
+@import "./pages.css";
+
+.wrapper{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 40px;
+    padding: 40px 30px;
+    background-color: var(--white);
+    border-radius: 20px;
+}
+
+h2{
+    font-size: var(--h1-size);
+    color: var(--blue-500)
+}
+
+.inputlabel{
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+
+}
+
+.inputlabel input{
+    width: 300px;
+    padding: 5px 10px 5px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--gray-500);
+    outline: 1px solid var(--gray-500);
+}
+
+.inputlabel label{
+    font-size: var(--h3-semibold-weight);
+    font-weight: var(--h3-semibold-weight);
+}
+
+.signup-page a, .login-page a{
+    color: var(--blue-300);
+    font-weight: var(--h4-regular-weight);
+    /* font-size: var(--h5-size); */
+}
+
+button{
+    background-color: var(--blue-500);
+    color: white;
+    font-size: var(--label1-500);
+}

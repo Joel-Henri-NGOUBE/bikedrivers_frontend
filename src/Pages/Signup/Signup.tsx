@@ -3,6 +3,8 @@ import InputLabel from "../../Components/InputLabel";
 import type { ISignup } from "../../Interfaces/APIResponses";
 import { Link, useNavigate, type NavigateFunction } from "react-router";
 import { jwtDecode } from "jwt-decode";
+import Company from "../../Components/Company/Company";
+import "../authenticate.css"
 
 export default function SignUp(){
 
@@ -62,42 +64,51 @@ export default function SignUp(){
             setResponse(res)
         })
     }
-    return <div className="signup">
-        <InputLabel
-        label="Firstname"
-        placeholder="Ambroise"
-        type="text"
-        inputValue={formValues.firstname}
-        handleChange={(e) => setFormValues({...formValues, firstname: e.target.value})}
-        />
+    return <div className="signup-page">
+        <div className="wrapper">
+            <Company
+                svg="/Bikedrivers-blue.svg"
+                length="70px"
+            />
+            <h2>Sign Up</h2>
+            <div className="inputs">
+                <InputLabel
+                label="Firstname"
+                placeholder="Ambroise"
+                type="text"
+                inputValue={formValues.firstname}
+                handleChange={(e) => setFormValues({...formValues, firstname: e.target.value})}
+                />
 
-        <InputLabel
-        label="Lastname"
-        placeholder="Genevilliers"
-        type="text"
-        inputValue={formValues.lastname}
-        handleChange={(e) => setFormValues({...formValues, lastname: e.target.value})}
-        />
+                <InputLabel
+                label="Lastname"
+                placeholder="Genevilliers"
+                type="text"
+                inputValue={formValues.lastname}
+                handleChange={(e) => setFormValues({...formValues, lastname: e.target.value})}
+                />
 
-        <InputLabel
-        label="Mail"
-        placeholder="ambroisegenevillers@gmail.com"
-        type="text"
-        inputValue={formValues.mail}
-        handleChange={(e) => setFormValues({...formValues, mail: e.target.value})}
-        />
+                <InputLabel
+                label="Mail"
+                placeholder="ambroisegenevillers@gmail.com"
+                type="text"
+                inputValue={formValues.mail}
+                handleChange={(e) => setFormValues({...formValues, mail: e.target.value})}
+                />
 
-        <InputLabel
-        label="Password"
-        placeholder="Enter your password"
-        type="password"
-        inputValue={formValues.password}
-        handleChange={(e) => setFormValues({...formValues, password: e.target.value})}
-        />
+                <InputLabel
+                label="Password"
+                placeholder="Enter your password"
+                type="password"
+                inputValue={formValues.password}
+                handleChange={(e) => setFormValues({...formValues, password: e.target.value})}
+                />
+            
+            </div>
 
-        <Link to="/">Already an account ? Log in</Link>
+            <Link to="/login">Already an account ? Log in</Link>
 
-        <button onClick={() => handleSignUp(formValues)}>Sign up</button>
-
+            <button onClick={() => handleSignUp(formValues)}>Sign up</button>
+        </div>
     </div>
 }

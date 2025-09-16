@@ -8,6 +8,7 @@ import type { IAppliedOffer } from "../../Interfaces/IOffer"
 import AdminHeader from "../../Components/Headers/AdminHeader"
 import UserHeader from "../../Components/Headers/UserHeader"
 import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions"
+import "./monitoring.css"
 
 export default function Monitoring(){
 
@@ -106,18 +107,21 @@ export default function Monitoring(){
     }
     }
 
-    return <div className="monitoring">
+    return <div className="monitoring-page">
         {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
-        
-        <div className="addDocument">
-            <span>Add document</span>
-            <input type="file" onChange={(e) => setUploadedDocument(e.target.files ? e.target.files[0]: null)}/>
-            <button onClick={() => handleDocumentSending(userId, uploadedDocument)}>Send Document</button>
+        <div className="content">
+            <div className="addDocument">
+                <h2>Add document</h2>
+                <input type="file" onChange={(e) => setUploadedDocument(e.target.files ? e.target.files[0]: null)}/>
+                <button onClick={() => handleDocumentSending(userId, uploadedDocument)}>Send Document</button>
+            </div>
+            <div className="bottom">
+                <Documents 
+                documents={documents}/>
+                <AppliedOffers
+                appliedOffers={appliedOffers}
+                />
+            </div>
         </div>
-        <Documents 
-        documents={documents}/>
-        <AppliedOffers
-        appliedOffers={appliedOffers}
-        />
     </div>
 }

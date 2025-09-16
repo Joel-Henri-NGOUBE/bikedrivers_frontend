@@ -6,6 +6,7 @@ import type { IApplication } from "../../Interfaces/Application";
 import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions";
 import AdminHeader from "../../Components/Headers/AdminHeader";
 import UserHeader from "../../Components/Headers/UserHeader";
+import "./applications.css"
 
 export default function Applications(){
     // Faire une requête vers offers qui me renvoie les offres en passant par les véhicules de l'utilisateur
@@ -87,18 +88,20 @@ export default function Applications(){
     
     return <div className="applications-page">
         {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
-        {offersToApplications.map((ota) => <div className="offer">
-            <span className="title">{ota.offer.title}</span>
-            <span className="type">{ota.offer.type}</span>
-            <span className="brand-model">{`${ota.offer.brand} ${ota.offer.model}`}</span>
-            <span className="status">{ota.offer.status}</span>
-            <div className="applications">
-                {ota.applications.map((a) => <Link to={`/applications/${a.application_id}/documents`}><div className="application">
-                    <span className="name">{`${a.firstname.toUpperCase()} ${a.lastname.toUpperCase()}`}</span>
-                    <span className="state">{a.state}</span>
-                    <span className="date">{a.application_date}</span>
-                </div></Link>)}
-            </div>
-        </div>)}
+        <div className="content">
+            {offersToApplications.map((ota) => <div className="offer">
+                <span className="title">{ota.offer.title}</span>
+                <span className="type">{ota.offer.type}</span>
+                <span className="brand-model">{`${ota.offer.brand} ${ota.offer.model}`}</span>
+                <span className="status">{ota.offer.status}</span>
+                <div className="applications">
+                    {ota.applications.map((a) => <Link to={`/applications/${a.application_id}/documents`}><div className="application">
+                        <span className="name">{`${a.firstname.toUpperCase()} ${a.lastname.toUpperCase()}`}</span>
+                        <span className="state">{a.state}</span>
+                        <span className="date">{a.application_date}</span>
+                    </div></Link>)}
+                </div>
+            </div>)}
+        </div>
     </div>
 }
