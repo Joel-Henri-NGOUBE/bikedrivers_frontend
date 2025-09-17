@@ -5,7 +5,9 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 0 15%
+    padding: 0 15%;
+    margin-top: 50px;
+
 }
 
 .vehicles-page .content{

@@ -6,6 +6,7 @@
     justify-content: space-between;
     flex-direction: row;
     height: calc(100% - 80px);
+    margin-top: 50px;
 }
 
 .addorsetoffer-page .requiredDocument, .addorsetoffer-page .requiredDocuments{
