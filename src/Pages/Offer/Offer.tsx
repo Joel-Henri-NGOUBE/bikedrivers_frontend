@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { IOffer } from "../../Interfaces/IOffer";
 import { useNavigate, useParams, type NavigateFunction } from "react-router";
 import type { IPicture } from "../../Interfaces/Picture";
-import { getLastSplittedElement } from "../../Utils/functions";
+import { getLastSplittedElement, sliceFileName } from "../../Utils/functions";
 import type { IRequiredDocument } from "../../Interfaces/RequiredDocuments";
 import type { IAssociateDocumentsId, IDocument } from "../../Interfaces/Document";
 import { jwtDecode } from "jwt-decode";
@@ -163,28 +163,33 @@ export default function Offer(){
         {`Apparais`} */}
         <div className="content">
             <div className="top">
-                <span className="title">{offer?.title}</span>
-                <span className="date">{offer && new Date(offer.createdAt).toString()}</span>
+                <div>
+                    <span className="title">{offer?.title}</span>
+                    <span className="date">publiée le {offer && new Date(offer.createdAt).toLocaleDateString("fr-FR", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/").reverse().join("/")}</span>
+                </div>
+                <span className="status">STATUS: <b style={offer?.status === "AVAILABLE" ? {color: 'var(--green-500)'} : (offer?.status === "TRANSACTED" ? {color: 'var(--blue-400)'} : {color: 'var(--black-500)'})}>{offer?.status}</b></span>
+                <div>
+                    <span className="service" style={offer?.service === "LOCATION" ? {color: 'var(--green-500)', borderColor: 'var(--green-500)'} : {color: 'var(--blue-300)', borderColor: 'var(--blue-300)'}}>{offer?.service}</span>
+                    <span className="price">{offer?.price} €</span>
+                </div>
                 <p className="description">{offer?.description}</p>
-                <span className="price">{offer?.price} €</span>
-                <span className="service">{offer?.service}</span>
-                <button onClick={() => {}} className="apply">{hasNotApplied ? "Apply to offer" : "Already applied"}</button>
             </div>
+            <div className="pictures">
+                {pictures.map(p => <img src={[`${import.meta.env.VITE_APP_BACKEND_API_URL}`,p.path].join("")} alt={p.path} width="350px" height="250px"></img>)}
+            </div>
+            <button className="apply">{hasNotApplied ? "Apply to this offer" : "Already applied to this offer"}</button>
             { hasNotApplied && <div className="requiredDocuments">
                 {requiredDocuments?.map((rd) => <div className="requiredDocument">
                     <label htmlFor="name">{rd.name}</label>
                     <p className="informations">{rd.informations}</p>
                     {documents.map((d) => <div className="document" onClick={() => hasNotApplied && setAssociateDocumentsId((adi) => adi.map((di) => di.requiredDocumentId === rd.id ? ({...di, documentId: d.id}) : di))}>
                         <img src="/file.png" alt={getLastSplittedElement(d.path)} width="35px"/>
-                        <span className="path">{getLastSplittedElement(d.path)}</span>
+                        <span className="path">{sliceFileName(getLastSplittedElement(d.path), 30)}</span>
                     </div>
                     )}
                 </div>)}
                 <button className="sendApplication" onClick={() => sendApplication(associateDocumentsId, offer?.id)}>Send application</button>
             </div>}
-            <div className="pictures">
-                {pictures.map(p => <img src={[`${import.meta.env.VITE_APP_BACKEND_API_URL}`,p.path].join("")} alt={p.path}></img>)}
-            </div>
         </div>
     </div>
 }

@@ -113,6 +113,7 @@ input[type="date"]{
         flex-direction: column;
         row-gap: 80px;
         align-items: center;
+        margin-top: 150px;
     }
 
     .vehicles-page .content .vehicle-form{
