@@ -16,6 +16,6 @@ jobs:
 
       - name: Build de l'image docker contenant le contenu du dépôt
         run: | 
-          docker image build -t ${{ secrets.DOCKER_USER }}/bikedrivers-frontend:v1-${{ github.sha }} .
+          docker image build -t ${{ secrets.DOCKER_USER }}/bikedrivers-frontend:v1.0.1 .
           docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker image push ${{ secrets.DOCKER_USER }}/bikedrivers-frontend:v1-${{ github.sha }}
+          docker image push ${{ secrets.DOCKER_USER }}/bikedrivers-frontend:v1.0.1
