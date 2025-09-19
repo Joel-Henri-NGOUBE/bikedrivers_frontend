@@ -3,9 +3,9 @@ name: BikeDrivers Frontend Application Deployment
 
 on:
   push:
-    branches: [ "main", "testDeployment" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "testDeployment" ]
+    branches: [ "main" ]
 
 jobs:
   build:
