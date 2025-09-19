@@ -28,3 +28,6 @@ jobs:
           file: ./Dockerfile 
           push: true
           tags: ${{ secrets.DOCKER_USER }}/bikedrivers-frontend:v1.0.1
+
+      - name: Trigger a the deploy
+        run: curl ${{ secrets.TRIGGER_DEPLOY_URL }}
