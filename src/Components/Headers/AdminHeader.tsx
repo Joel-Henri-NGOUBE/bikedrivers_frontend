@@ -28,7 +28,7 @@ export default function AdminHeader(){
             length="60px"
             />
             <div className="adminpanel">
-            <h4>ADMIN PANEL</h4> 
+            <h4>ADMIN PANEL PANEL</h4> 
             </div>
         </div>
         <div className="links">
