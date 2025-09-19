@@ -1,0 +1,21 @@
+
+name: BikeDrivers Frontend Application Deployment
+
+on:
+  push:
+    branches: [ "main", "testDeployment" ]
+  pull_request:
+    branches: [ "main", "testDeployment" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build de l'image docker contenant le contenu du dépôt
+        run: | 
+          docker image build -t ${{ secrets.DOCKER_USER }}/bikedrivers-frontend:v1-${{ github.sha }} .
+          docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker image push ${{ secrets.DOCKER_USER }}/bikedrivers-frontend:v1-${{ github.sha }}
