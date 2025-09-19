@@ -35,7 +35,7 @@ export default function UserHeader(){
                 <a href="" onClick={(e) => {handleLogout(e)}}>Logout</a>
             </>
             : <>
-                <Link to="/signup" style={path === "/signup" ? {color: "var(--green-500)"} : {}}>Sign Up Or Down And You ?</Link>
+                <Link to="/signup" style={path === "/signup" ? {color: "var(--green-500)"} : {}}>Sign Up</Link>
                 <Link to="/login" style={path === "/login" ? {color: "var(--green-500)"} : {}}>Log In</Link>
             </>}
 
