@@ -21,6 +21,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build de l'image docker contenant le contenu du dépôt
-        run: | 
-          docker image build -t ${{ secrets.DOCKER_USER }}/bikedrivers-frontend:v1-${{ github.sha }} .
-          docker image push ${{ secrets.DOCKER_USER }}/bikedrivers-frontend:v1-${{ github.sha }}
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile 
+          push: true
+          tags: ${{ secrets.DOCKER_USER }}/bikedrivers-frontend:v1-${{ github.sha }}
