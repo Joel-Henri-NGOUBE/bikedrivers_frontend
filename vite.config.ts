@@ -5,6 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    allowedHosts: ["https://bikedrivers-frontend-v1-0-1-1.onrender.com", "localhost", "0.0.0.0"]
+    allowedHosts: ["bikedrivers-frontend-v1-0-1-1.onrender.com"]
   }
 })
