@@ -1,0 +1,7 @@
+services:
+  # Lancer le service mysql
+  bikedrivers-frontend:
+    build: .
+    # Déclaration des variables d'environnement du container
+    ports:
+      - 5173:5173
