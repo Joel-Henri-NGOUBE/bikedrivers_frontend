@@ -6,7 +6,7 @@ import { getLastSplittedElement, sliceFileName } from "../../Utils/functions";
 import type { IRequiredDocument } from "../../Interfaces/RequiredDocuments";
 import type { IAssociateDocumentsId, IDocument } from "../../Interfaces/Document";
 import { jwtDecode } from "jwt-decode";
-import InputSelect from "../../Components/InputSelect";
+import InputSelect from "../../Components/Inputs/InputSelect";
 import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions";
 import AdminHeader from "../../Components/Headers/AdminHeader";
 import UserHeader from "../../Components/Headers/UserHeader";

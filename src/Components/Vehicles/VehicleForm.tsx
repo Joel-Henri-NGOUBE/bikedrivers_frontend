@@ -1,6 +1,6 @@
 import type { IVehicle, IVehicleForm, IVehicleFormProp } from "../../Interfaces/Vehicle";
 import { formateDate } from "../../Utils/functions"
-import InputLabel from "../InputLabel";
+import InputLabel from "../Inputs/InputLabel";
 
 export default function VehicleForm({vehicleForm, setVehicleForm, form, isPictureUploaded, setIsPictureUploaded, vehicleId, setVehicleId, addVehicle, setUploadedPicture}: IVehicleFormProp){
     function handleUnsetVehicle(form: IVehicleForm){

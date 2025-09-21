@@ -1,5 +1,5 @@
 import type { ChangeEvent } from "react";
-import type { IInputSelect } from "../Interfaces/InputSelect";
+import type { IInputSelect } from "../../Interfaces/InputSelect";
 
 export default function InputSelect({label, options, inputValue, handleChange}: IInputSelect){
     return <div className="inputselect">

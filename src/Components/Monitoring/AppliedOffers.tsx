@@ -1,5 +1,4 @@
 import type { IAppliedOffersProp } from "../../Interfaces/IOffer";
-import { formateDate } from "../../Utils/functions";
 
 export default function AppliedOffers({appliedOffers}: IAppliedOffersProp){
     return <div className="appliedOffers">

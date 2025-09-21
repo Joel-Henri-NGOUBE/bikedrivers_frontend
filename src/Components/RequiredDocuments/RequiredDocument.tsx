@@ -1,5 +1,5 @@
 import type { IReaquiredDocumentProp } from "../../Interfaces/RequiredDocuments";
-import InputLabel from "../InputLabel";
+import InputLabel from "../Inputs/InputLabel";
 
 export default function RequiredDocument({name, informations, handleChange1, handleChange2}: IReaquiredDocumentProp){
 

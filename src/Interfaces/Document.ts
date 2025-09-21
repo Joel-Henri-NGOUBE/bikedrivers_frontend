@@ -3,7 +3,7 @@ export interface IDocument{
     path: string,
     addedAt: string,
     updatedAt: string,
-    user: number
+    user: string
 }
 
 export interface IDocumentProp{

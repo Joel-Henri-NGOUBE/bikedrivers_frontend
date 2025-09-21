@@ -9,7 +9,6 @@ export interface IOffer{
     vehicle: string,
     comments: string[],
     applications: string[],
-    messages: string[],
     requiredDocuments: string[],
     title: string,
     price: string,

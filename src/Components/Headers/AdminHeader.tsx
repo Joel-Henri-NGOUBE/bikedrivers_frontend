@@ -45,7 +45,6 @@ export default function AdminHeader(){
             : <>
                 <Link to="/signup" style={path === "/signup" ? {color: "var(--green-500)"} : {}}>Sign Up</Link>
                 <Link to="/login" style={path === "/login" ? {color: "var(--green-500)"} : {}}>Log In</Link>
-                <a href="" onClick={(e) => {handleLogout(e)}}>Logout</a>
             </>}
             
         </div>

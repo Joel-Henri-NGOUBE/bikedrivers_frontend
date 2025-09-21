@@ -1,5 +1,5 @@
 import type { IRequiredDocumentsProp } from "../../Interfaces/RequiredDocuments";
-import InputLabel from "../InputLabel";
+import InputLabel from "../Inputs/InputLabel";
 import RequiredDocument from "./RequiredDocument";
 
 export default function RequiredDocuments({requiredDocumentsCount, setRequiredDocumentsCount, requiredDocuments, setRequiredDocuments}: IRequiredDocumentsProp){

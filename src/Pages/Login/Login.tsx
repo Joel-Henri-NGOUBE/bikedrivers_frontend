@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import InputLabel from "../../Components/InputLabel";
+import InputLabel from "../../Components/Inputs/InputLabel";
 import type { TLogin } from "../../Interfaces/APIResponses";
 import { Link, useNavigate, type NavigateFunction } from "react-router";
 import { jwtDecode } from "jwt-decode";
