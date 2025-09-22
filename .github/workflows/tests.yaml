@@ -19,8 +19,8 @@ jobs:
           node-version: 22.18
 
       - name: Install dependencies
-        run: npm install frontend
+        run: npm install
 
       # Executing tests
       - name: Running tests
-        run: npm run test frontend
+        run: npm run test
