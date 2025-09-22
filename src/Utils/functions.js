@@ -7,8 +7,8 @@ export function formateDate(date){
         : (new Date()).toLocaleDateString("fr-FR", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/").reverse().join("-")
 }
 
-export function getLastSplittedElement(array){
-    return array.split("/").reverse()[0]
+export function getLastSplittedElement(string){
+    return string.split("/").reverse()[0]
 }
 
 export function sliceText(text, maxLenght){

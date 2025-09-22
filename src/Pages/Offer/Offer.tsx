@@ -58,7 +58,6 @@ export default function Offer(){
         })
         .then((res: {id: number}) => {
             setUserId(res.id)
-            console.log(jwtDecode(token))
         })
         }
     , [])
@@ -84,7 +83,6 @@ export default function Offer(){
         }, [userId])
 
     useEffect(() => {
-        console.log(hasNotApplied)
             hasNotApplied && fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}/required_documents`].join(""), {
                 method: "GET"
             })
@@ -101,13 +99,11 @@ export default function Offer(){
     useEffect(() => {
         if(offer){
         const vehicle_id = getLastSplittedElement(offer.vehicle)
-        console.log(vehicle_id)
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/vehicles/${vehicle_id}/pictures`].join(""), {
             method: "GET"
         })
         .then(res => res.json())
         .then((res: any) => {
-            console.log(res)
             setPictures(res.member);
         })}
     }, [offer])
@@ -153,14 +149,13 @@ export default function Offer(){
         //     setPictures(res.member);
         // }) 
         })
+        setHasNotApplied(false)
     }
 
     // function associateDocuments(requiredDocumentsCount, )
 
     return <div className="offer-page" key={offer?.id}>
         {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
-        {/* {`${console.log(jwtDecode(token ? token : ""))}`}
-        {`Apparais`} */}
         <div className="content">
             <div className="top">
                 <div>

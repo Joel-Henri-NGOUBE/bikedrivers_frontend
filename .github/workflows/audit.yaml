@@ -33,11 +33,11 @@ jobs:
             react-vite-latest-
 
       - name: Install dependencies
-        run: npm install -C frontend
+        run: npm install
       
       # Executing the audit and defining its specifications
       - name: Security Audit
-        run: npm audit -C frontend --audit-level=critical --audit-level=high --dry-run > /tmp/security-audit-frontend.txt
+        run: npm audit --audit-level=critical --audit-level=high --dry-run > /tmp/security-audit-frontend.txt
       
       # Retrieving the audit result
       - name: Upload security audit report
