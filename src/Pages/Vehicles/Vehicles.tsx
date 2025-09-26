@@ -39,7 +39,7 @@ export default function Vehicles(){
 
     const token = localStorage.getItem("token")
         
-    // Getting the id to verify is the current user is authenticated
+    // Getting the id to verify if the current user is authenticated
 
     useEffect(() => {
         token
@@ -70,7 +70,6 @@ export default function Vehicles(){
     , [])
 
     useEffect(() => {
-        // console.log(token, userId);
         (token && userId) &&
         fetchVehicles(userId)
     }, [userId])
@@ -93,7 +92,6 @@ export default function Vehicles(){
                         : v2)
                 )
                 })
-                // console.log(vtp)
             })
         }, [userId, vehicles])
 
@@ -130,7 +128,6 @@ export default function Vehicles(){
                 await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}/pictures`].join(""), {
                         method: "POST",
                         headers: {
-                            // "Content-Type": `multipart/form-data; charset=utf-8; boundary=${Math.random().toString()}`,
                             "Authorization": `Bearer ${token}`
                         },
                         body: formData

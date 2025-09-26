@@ -96,7 +96,6 @@ export default function Monitoring(){
         await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/documents`].join(""), {
                 method: "POST",
                 headers: {
-                    // "Content-Type": `multipart/form-data; charset=utf-8; boundary=${Math.random().toString()}`,
                     "Authorization": `Bearer ${token}`
                 },
                 body: formData

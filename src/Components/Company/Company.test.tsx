@@ -1,6 +1,5 @@
 import { screen, render } from "@testing-library/react"
 import Company from "./Company"
-// import { describe, it, expect } from "vitest"
 
 describe("Company component tests", () => {
     it("should have a logo of right dimension", async () => {
