@@ -1,4 +1,3 @@
-import { jwtDecode } from "jwt-decode";
 import Company from "../Company/Company";
 import "./header.css"
 import { Link, useLocation, useNavigate, type NavigateFunction } from "react-router";
@@ -6,8 +5,6 @@ import { Link, useLocation, useNavigate, type NavigateFunction } from "react-rou
 export default function AdminHeader(){
     const location = useLocation()
     const path = location.pathname
-
-    const token = localStorage.getItem("token")
 
     const navigate: NavigateFunction = useNavigate()
     /**

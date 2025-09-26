@@ -31,8 +31,6 @@ export default function Vehicles(){
 
     const [isPictureUploaded, setIsPictureUploaded] = useState<boolean>(false)
 
-    // const [vehicleId, setVehicleId] = useState<number>(0)
-
     const [vehiclesToPictures, setVehiclesToPictures] = useState<IVehicleToPictures[]>([])
 
     const navigate: NavigateFunction = useNavigate()
@@ -149,15 +147,7 @@ export default function Vehicles(){
             fetchVehicles(userId)
 
         }
-        // .then((res: {id: number}) => {
-        //     setUserId(res.id)
-        // })
     }
-
-    // function handleSetVehicle(id: number, vehicleForm: IVehicleForm){
-    //     setVehicleId(id)
-    //     setVehicleForm(vehicleForm)
-    // }
 
     async function handleDelete(vehicleId: number){
         setVehicles((v) => v.filter((vehicle) => vehicle.id !== vehicleId));

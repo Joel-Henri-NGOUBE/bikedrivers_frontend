@@ -1,8 +1,8 @@
-import type { IVehicle, IVehicleForm, IVehicleFormProp } from "../../Interfaces/Vehicle";
+import type { IVehicleForm, IVehicleFormProp } from "../../Interfaces/Vehicle";
 import { formateDate } from "../../Utils/functions"
 import InputLabel from "../Inputs/InputLabel";
 
-export default function VehicleForm({vehicleForm, setVehicleForm, form, isPictureUploaded, setIsPictureUploaded, vehicleId, setVehicleId, addVehicle, setUploadedPicture}: IVehicleFormProp){
+export default function VehicleForm({vehicleForm, setVehicleForm, form, vehicleId, setVehicleId, addVehicle, setUploadedPicture}: IVehicleFormProp){
     function handleUnsetVehicle(form: IVehicleForm){
         setVehicleId(0)
         setVehicleForm(form)
@@ -40,10 +40,8 @@ export default function VehicleForm({vehicleForm, setVehicleForm, form, isPictur
         {vehicleId ? <div className="imageField">
             <label htmlFor="file">Image</label>
             <input type="file" name="file" id="file" onChange={(e) => setUploadedPicture(e.target.files ? e.target.files[0] : null)}/>
-        {/* <button className="sendPicture" onClick={() => setIsPictureUploaded(!isPictureUploaded)}>{isPictureUploaded ? "Add picture" : "Hide picture field"}</button> */}
         <button className="cancelChange" onClick={() => handleUnsetVehicle(form)}>Cancel Modification</button>
         </div> : ""}
         <button className="addVehicle" onClick={() => addVehicle()}>{vehicleId ? "Set": "Add"} vehicle</button>
-        {/* <button className="addPicture" onClick={() => setIsPictureUploaded(!isPictureUploaded)}>{isPictureUploaded ? "Add picture" : "Hide picture field"}</button> */}
     </div>
 }

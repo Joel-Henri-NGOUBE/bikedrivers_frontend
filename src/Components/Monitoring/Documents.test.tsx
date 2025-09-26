@@ -50,7 +50,6 @@ describe("Documents Component tests", () => {
         expect(secondDocumentLink).toHaveAttribute("href", [`${import.meta.env.VITE_APP_BACKEND_API_URL}`, documents[1].path].join(""))
         
         const secondDocumentImg = document.querySelectorAll("img")
-        // console.log(secondDocumentImg)
         expect(secondDocumentImg[1]).toHaveAttribute("alt", getLastSplittedElement(documents[1].path))
         
         const secondDocumentPathSpan = document.querySelectorAll(".path")

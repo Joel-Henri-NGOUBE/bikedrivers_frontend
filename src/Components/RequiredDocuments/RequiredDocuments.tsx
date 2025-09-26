@@ -1,8 +1,7 @@
 import type { IRequiredDocumentsProp } from "../../Interfaces/RequiredDocuments";
-import InputLabel from "../Inputs/InputLabel";
 import RequiredDocument from "./RequiredDocument";
 
-export default function RequiredDocuments({requiredDocumentsCount, setRequiredDocumentsCount, requiredDocuments, setRequiredDocuments}: IRequiredDocumentsProp){
+export default function RequiredDocuments({setRequiredDocumentsCount, requiredDocuments, setRequiredDocuments}: IRequiredDocumentsProp){
     function handleClick(){
         setRequiredDocumentsCount((rd) => rd + 1)
         setRequiredDocuments((rd) => [...rd, {
@@ -10,11 +9,11 @@ export default function RequiredDocuments({requiredDocumentsCount, setRequiredDo
             name: "",
             informations: ""
         }])
-        console.log(requiredDocuments)
     }
     return <div className="requiredDocuments">
         {requiredDocuments.map((rd) => 
             <RequiredDocument
+            key={rd.id}
             name={rd.name}
             handleChange1={(e) => setRequiredDocuments(rds => rds.map((reqDoc) => 
                 rd.id === reqDoc.id ? {...reqDoc, name: e.target.value} : reqDoc

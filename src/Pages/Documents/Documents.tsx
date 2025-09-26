@@ -49,7 +49,6 @@ export default function Documents(){
     , [])
 
     useEffect(() => {
-        // console.log(token, userId);
         (token && applicationId) &&
         fetchDocumentsElements(applicationId)
     }, [userId])

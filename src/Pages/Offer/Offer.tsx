@@ -6,7 +6,6 @@ import { getLastSplittedElement, sliceFileName } from "../../Utils/functions";
 import type { IRequiredDocument } from "../../Interfaces/RequiredDocuments";
 import type { IAssociateDocumentsId, IDocument } from "../../Interfaces/Document";
 import { jwtDecode } from "jwt-decode";
-import InputSelect from "../../Components/Inputs/InputSelect";
 import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions";
 import AdminHeader from "../../Components/Headers/AdminHeader";
 import UserHeader from "../../Components/Headers/UserHeader";
@@ -143,16 +142,9 @@ export default function Offer(){
                 documents: associateDocumentsIdArray.map((adi) => `api/documents/${adi.documentId}`)
             })
         })
-        // .then(res => res.json())
-        // .then((res: any) => {
-        //     console.log(res)
-        //     setPictures(res.member);
-        // }) 
         })
         setHasNotApplied(false)
     }
-
-    // function associateDocuments(requiredDocumentsCount, )
 
     return <div className="offer-page" key={offer?.id}>
         {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
@@ -170,14 +162,14 @@ export default function Offer(){
                 <p className="description">{offer?.description}</p>
             </div>
             <div className="pictures">
-                {pictures.map(p => <img src={[`${import.meta.env.VITE_APP_BACKEND_API_URL}`,p.path].join("")} alt={p.path} width="350px" height="250px"></img>)}
+                {pictures.map(p => <img src={[`${import.meta.env.VITE_APP_BACKEND_API_URL}`,p.path].join("")} alt={p.path} width="350px" height="250px" key={p.id}></img>)}
             </div>
             <button className="apply">{hasNotApplied ? "Apply to this offer" : "Already applied to this offer"}</button>
             { hasNotApplied && <div className="requiredDocuments">
-                {requiredDocuments?.map((rd) => <div className="requiredDocument">
+                {requiredDocuments?.map((rd) => <div className="requiredDocument" key={rd.id}>
                     <label htmlFor="name">{rd.name}</label>
                     <p className="informations">{rd.informations}</p>
-                    {documents.map((d) => <div className="document" onClick={() => hasNotApplied && setAssociateDocumentsId((adi) => adi.map((di) => di.requiredDocumentId === rd.id ? ({...di, documentId: d.id}) : di))}>
+                    {documents.map((d) => <div className="document" key={d.id} onClick={() => hasNotApplied && setAssociateDocumentsId((adi) => adi.map((di) => di.requiredDocumentId === rd.id ? ({...di, documentId: d.id}) : di))}>
                         <img src="/file.png" alt={getLastSplittedElement(d.path)} width="35px"/>
                         <span className="path">{sliceFileName(getLastSplittedElement(d.path), 30)}</span>
                     </div>

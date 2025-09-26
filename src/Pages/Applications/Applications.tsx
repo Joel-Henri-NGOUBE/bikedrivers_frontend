@@ -9,8 +9,6 @@ import UserHeader from "../../Components/Headers/UserHeader";
 import "./applications.css"
 
 export default function Applications(){
-    // Faire une requête vers offers qui me renvoie les offres en passant par les véhicules de l'utilisateur
-    // Récupérer pour chaque offre les candidatures correspondantes
 
     const [userId, setUserId] = useState<number>(0)
 
@@ -51,7 +49,6 @@ export default function Applications(){
     , [])
 
     useEffect(() => {
-        // console.log(token, userId);
         (token && userId) &&
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/offers/elements`].join(""), {
             method: "GET",
@@ -66,7 +63,6 @@ export default function Applications(){
     }, [userId])
 
     useEffect(() => {
-        // console.log(token, userId);
         token &&
         offersElements.forEach((oe) => {
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${oe.id_offer}/applications/appliers`].join(""), {

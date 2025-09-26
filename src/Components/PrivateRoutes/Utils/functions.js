@@ -6,6 +6,6 @@ export function findIfUserIsAdmin(){
     const credentials = token ? jwtDecode(token) : {}
 
     const isAdmin = credentials?.roles?.find((r) => r === "ROLE_ADMIN")?.length || false
-    // console.log(credentials?.roles?.find((r) => r === "ROLE_ADMIN"))
+    
     return isAdmin
 }

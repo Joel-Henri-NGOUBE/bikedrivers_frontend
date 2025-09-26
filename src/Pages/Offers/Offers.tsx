@@ -29,7 +29,7 @@ export default function Offers(){
         <span className="pub">Welcome to <b>BikeDrivers</b>. Find out a selection of all types of bikes for sale or for rent</span>
         <div className="offers">
             <div className="offers-wrapper">
-                {offers.map(offer => <Link to={`/offer/${offer.id}`}><div className="offer" key={offer.id}>
+                {offers.map(offer => <Link to={`/offer/${offer.id}`} key={offer.id}><div className="offer" >
                     <span className="date">{new Date(offer.createdAt).toLocaleDateString("fr-FR", {year: "numeric", month: "2-digit", day: "2-digit"})}</span>
                     <span className="title">{offer.title}</span>
                     <p className="description">{sliceText(offer.description, 100)}</p>

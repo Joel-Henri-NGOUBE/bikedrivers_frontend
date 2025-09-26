@@ -11,7 +11,6 @@ import Vehicles from "../../Pages/Vehicles/Vehicles"
 import Applications from "../../Pages/Applications/Applications"
 import SignUp from "../../Pages/Signup/Signup"
 import LogIn from "../../Pages/Login/Login"
-import PrivateRoute from "../PrivateRoutes/PrivateRoutes"
 import type { IOffer } from "../../Interfaces/IOffer"
 import type { IVehicle } from "../../Interfaces/Vehicle"
 
@@ -60,7 +59,6 @@ const vehicles: IVehicle[] = [
 
 const server = setupServer(
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     member: offers
@@ -83,7 +81,6 @@ const server = setupServer(
         }
     ),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/:id/vehicles`].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     member: vehicles
@@ -95,7 +92,6 @@ const server = setupServer(
         }
     ),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/:id/offers/elements`].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     
@@ -107,7 +103,6 @@ const server = setupServer(
         }
     ),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/:id/offers/applied`].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     
@@ -119,7 +114,6 @@ const server = setupServer(
         }
     ),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/:id/documents`].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     
@@ -185,24 +179,11 @@ describe("Header tests", () => {
         
         await userEvent.click(links[1])
 
-        // console.log(document.querySelector(".offers-page"))
-
         const signupDivContainer =  document.querySelector(".signup-page")
 
         // As the operations' class only exist on the operations' page, it asserts that the redirection was successful
         expect(signupDivContainer).toBeInTheDocument()
         expect(signupDivContainer).toBeVisible()
-        
-        // const newLinks = await waitFor(() => document.querySelectorAll(".offers-page .header a"))
-        
-        // console.log(newLinks[1])
-        // await userEvent.click(newLinks[1])
-
-        // const addOrSetOfferDivContainer =  document.querySelector(".addorsetoffer-page")
-
-        // // As the operations' class only exist on the operations' page, it asserts that the redirection was successful
-        // expect(addOrSetOfferDivContainer).toBeInTheDocument()
-        // expect(addOrSetOfferDivContainer).toBeVisible()
 
     })
     it("Should redirect to Login page", async () => {
@@ -230,8 +211,6 @@ describe("Header tests", () => {
         const links = await waitFor(() => document.querySelectorAll(".offers-page .header a"))
         
         await userEvent.click(links[2])
-
-        // console.log(document.querySelector(".offers-page"))
 
         const signupDivContainer =  document.querySelector(".login-page")
 

@@ -4,7 +4,7 @@ export default function AppliedOffers({appliedOffers}: IAppliedOffersProp){
     return <div className="appliedOffers">
         <h2>Applied Offers</h2>
         <div className="applied-wrapper">
-            {appliedOffers?.map((ao) => <div className="appliedOffer">
+            {appliedOffers?.map((ao, index) => <div className="appliedOffer" key={index}>
                 <div className="top">
                     <span className="brand-model">{`${ao.brand} ${ao.model.toUpperCase()}`}</span>
                     <span className="date">{new Date(ao.application_date).toLocaleDateString("fr-FR", {year: "numeric", month: "2-digit", day: "2-digit"}).split("/").join("/")}</span>

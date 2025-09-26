@@ -64,7 +64,6 @@ const offers: IOffer[] = [
 
 const server = setupServer(
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     member: offers
@@ -205,23 +204,3 @@ describe("Sign Up page tests", () => {
         expect(loginDivcontainer).toBeVisible()
     })
 })
-
-
-// // console.log(document.querySelector(".offers-page"))
-
-// const signupDivContainer =  document.querySelector(".signup-page")
-
-// // As the operations' class only exist on the operations' page, it asserts that the redirection was successful
-// expect(signupDivContainer).toBeInTheDocument()
-// expect(signupDivContainer).toBeVisible()
-
-// // const newLinks = await waitFor(() => document.querySelectorAll(".offers-page .header a"))
-
-// // console.log(newLinks[1])
-// // await userEvent.click(newLinks[1])
-
-// // const addOrSetOfferDivContainer =  document.querySelector(".addorsetoffer-page")
-
-// // // As the operations' class only exist on the operations' page, it asserts that the redirection was successful
-// // expect(addOrSetOfferDivContainer).toBeInTheDocument()
-// // expect(addOrSetOfferDivContainer).toBeVisible()

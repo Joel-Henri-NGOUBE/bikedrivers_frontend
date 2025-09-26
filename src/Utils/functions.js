@@ -30,6 +30,3 @@ export function sliceFileName(fileName, maxLenght){
     return sliceText(stringName, maxLenght) + `.${extension}`
 
 }
-
-
-// console.log(sliceFileName("umldhqvfjvuiezguskfgukzegfeuzgfugzskufgzjusgfusfusufgiusfgieurhfuehsiodhgiltdhlhgiltligilghbk-68c57bca76897857494680.pdf", 10))

@@ -55,13 +55,11 @@ export default function Monitoring(){
     , [])
 
     useEffect(() => {
-        // console.log(token, userId);
         (token && userId) &&
         fetchDocuments(userId)
     }, [userId])
 
     useEffect(() => {
-        // console.log(token, userId);
         (token && userId) &&
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/offers/applied`].join(""), {
             method: "GET",

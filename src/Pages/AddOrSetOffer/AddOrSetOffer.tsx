@@ -15,8 +15,6 @@ import "./addorsetoffer.css"
 
 export default function AddOrSetOffer(){
 
-    // location.reload()
-
     const [offer, setOffer] = useState<IOffer | null>(null)
 
     const [offers, setOffers] = useState<IOffer[]>([])
@@ -123,7 +121,6 @@ export default function AddOrSetOffer(){
     }, [location.key])
 
     useEffect(() => {
-        // console.log(token, userId);
         (token && userId) &&
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
             method: "GET",
@@ -135,12 +132,8 @@ export default function AddOrSetOffer(){
         .then(res => res.json())
         .then((res: any) => {
             setVehicles(res.member);
-            // console.log(res.member)
-            // console.log(offer)
-            // Mettre l'id du vehicule s'il n'y a pas d'offre
             if(offer?.vehicle){
                 const vehicleId = getLastSplittedElement(offer?.vehicle)
-                // console.log(offer?.vehicle)
                 setVehicleId(vehicleId ? parseInt(vehicleId) : 0)
                 setFormValues({...formValues, vehicle: res.member.filter((v: any) => v.id === vehicleId)})
             }
@@ -159,7 +152,7 @@ export default function AddOrSetOffer(){
         )
 }
 
-    async function addOrSetOffer(formValues: typeof form, navigate: Function, requiredDocuments: IRequiredDocument[], vehicleId: number){
+    async function addOrSetOffer(formValues: typeof form, requiredDocuments: IRequiredDocument[], vehicleId: number){
         if(!id){
             const isANameGiven = requiredDocuments.reduce((acc, cur) => acc + cur.name, "")
             if(vehicleId && isANameGiven){
@@ -180,7 +173,6 @@ export default function AddOrSetOffer(){
                 })
                 .then(res => {
                     return res.json()
-                    // res.status === 200 && navigate()
                 })
 
                 requiredDocuments?.forEach((rd) => 
@@ -321,7 +313,7 @@ export default function AddOrSetOffer(){
                 setRequiredDocumentsCount={setRequiredDocumentsCount}
                 />
 
-                <button onClick={() => addOrSetOffer(formValues, () => navigate("/"), requiredDocuments, vehicleId)}>Add Offer</button>
+                <button onClick={() => addOrSetOffer(formValues, requiredDocuments, vehicleId)}>Add Offer</button>
             </div>
 
             <div className="offers">

@@ -11,11 +11,9 @@ import Vehicles from "../Vehicles/Vehicles"
 import Applications from "../Applications/Applications"
 import SignUp from "../Signup/Signup"
 import LogIn from "../Login/Login"
-import PrivateRoute from "../../Components/PrivateRoutes/PrivateRoutes"
 import type { IOffer } from "../../Interfaces/IOffer"
 import Offer from "../Offer/Offer"
 import type { IRequiredDocument } from "../../Interfaces/RequiredDocuments"
-import path from "path"
 
 const offers: IOffer[] = [
     {
@@ -72,7 +70,6 @@ const requiredDocument: IRequiredDocument = {
 
 const server = setupServer(
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/:id"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     ...offers[0]
@@ -94,7 +91,6 @@ const server = setupServer(
         )
     }),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/:id/applications/users/:userId/hasApplied"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     hasApplied: false
@@ -106,7 +102,6 @@ const server = setupServer(
         }
     ),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/:id/required_documents"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     member: [requiredDocument]
@@ -118,7 +113,6 @@ const server = setupServer(
         }
     ),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/vehicles/:id/pictures"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     member: []
@@ -130,7 +124,6 @@ const server = setupServer(
         }
     ),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/:id/documents"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     member: [{
@@ -148,7 +141,6 @@ const server = setupServer(
         }
     ),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/required_documents/:id/documents/:document_id/match_documents"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                 },
@@ -159,7 +151,6 @@ const server = setupServer(
         }
     ),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/:id/applications"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     member: offers[0]

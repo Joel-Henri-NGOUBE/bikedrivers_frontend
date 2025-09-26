@@ -8,7 +8,7 @@ export default function VehiclesList({vehicles, vehiclesToPictures, setVehicleId
     }
     return <div className="vehicles-list">
         {vehicles.map((v) => 
-        <div className="vehicle-wrapper">
+        <div className="vehicle-wrapper" key={v.id}>
             <div className="vehicle" onClick={() => handleSetVehicle(v.id, {type: v.type, model: v.model, brand: v.brand, purchasedAt: v.purchasedAt})}>
                 <div className="top">
                     <div>

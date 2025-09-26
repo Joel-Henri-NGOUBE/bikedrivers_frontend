@@ -11,9 +11,6 @@ import Vehicles from "../Vehicles/Vehicles"
 import Applications from "../Applications/Applications"
 import SignUp from "../Signup/Signup"
 import LogIn from "../Login/Login"
-import PrivateRoute from "../../Components/PrivateRoutes/PrivateRoutes"
-import type { IOffer } from "../../Interfaces/IOffer"
-import Offer from "../Offer/Offer"
 import type { IVehicle } from "../../Interfaces/Vehicle"
 
 const vehicles: IVehicle[] = [
@@ -69,7 +66,6 @@ const server = setupServer(
         )
     }),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/:id/vehicles`].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     member: vehicles
@@ -81,7 +77,6 @@ const server = setupServer(
         }
     ),
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/:user_id/vehicles/:vehicle_id/pictures"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     member: []
@@ -93,19 +88,6 @@ const server = setupServer(
         }
     ),
     http.post([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/:id/vehicles`].join(""), async () => {
-        // console.log(request.)
-        const newVehicle = {
-        id: 4,
-        type: "Voiture",
-        model: "Clio 5",
-        brand: "Renault",
-        addedAt: "",
-        updatedAt: "",
-        purchasedAt: "",
-        user: "/api/users/1",
-        offers: [""],
-        pictures: [""]
-    }
         return HttpResponse.json(
                 {
                     member: vehicles
@@ -117,7 +99,6 @@ const server = setupServer(
         }
     ),
     http.delete([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/:id/vehicles/:vehicle_id`].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                 },

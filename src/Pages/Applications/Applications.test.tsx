@@ -64,7 +64,6 @@ const offers: IOffer[] = [
 
 const server = setupServer(
     http.get([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers"].join(""), async () => {
-        // console.log(request.)
         return HttpResponse.json(
                 {
                     member: offers
