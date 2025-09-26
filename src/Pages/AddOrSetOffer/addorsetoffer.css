@@ -45,11 +45,6 @@
     background-color: var(--white);
 }
 
-.addorsetoffer-page .content a{
-    /* all: unset; */
-}
-
-
 .addorsetoffer-page .delete{
     align-self: flex-end;
 }

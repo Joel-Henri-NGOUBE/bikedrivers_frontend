@@ -49,3 +49,11 @@ button{
     color: white;
     font-size: var(--label1-500);
 }
+
+@media screen and (max-width: 500px) {
+    .signup-page .wrapper, .login-page .wrapper{
+        width: 100%;
+        height: 100%;
+        border-radius: unset;
+    }
+}

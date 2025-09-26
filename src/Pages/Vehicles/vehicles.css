@@ -121,3 +121,9 @@ input[type="date"]{
         top: 0px;
     }
 }
+
+@media screen and (max-width: 500px) {
+    .vehicles-page .content .vehicle-wrapper{
+        width: 320px;
+    }
+}

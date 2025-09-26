@@ -79,3 +79,9 @@
 .offers-page .pub b{
     color: var(--blue-500);
 }
+
+@media screen and (max-width: 500px) {
+    .offers-page .content .offers .offer{
+        width: 320px;
+    }
+}

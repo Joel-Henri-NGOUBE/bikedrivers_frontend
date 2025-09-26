@@ -21,6 +21,15 @@ export default function AdminHeader(){
         navigate("/login")
     }
 
+    function makeSublinksVisible(){
+        (document.querySelector(".sublinks") as HTMLElement).style = "display: flex;"
+    }
+
+    function makeSublinksInvisible(){
+        (document.querySelector(".sublinks") as HTMLElement).style = "display: none;"
+    }
+
+
     return <div className="header admin">
         <div className="left">
             <Company
@@ -33,20 +42,25 @@ export default function AdminHeader(){
         </div>
         <div className="links">
             <Link to="/" style={path === "/" ? {color: "var(--green-500)"} : {}}>Home</Link>
-            {(token && (jwtDecode(token) as any).username) 
-            ?  <>
-                <Link to="/offers" style={path === "/offers" ? {color: "var(--green-500)"} : {}}>Offers</Link>
-                <Link to="/vehicles" style={path === "/vehicles" ? {color: "var(--green-500)"} : {}}>Vehicles</Link>
-                <Link to="/applications" style={path === "/applications" ? {color: "var(--green-500)"} : {}}>Applications</Link>
-                <Link to="/monitoring" style={path === "/monitoring" ? {color: "var(--green-500)"} : {}}>Monitoring</Link>
-                <Link to="/settings" style={path === "/settings" ? {color: "var(--green-500)"} : {}}>Settings</Link>
-                <a href="" onClick={(e) => {handleLogout(e)}}>Logout</a>
-            </>
-            : <>
-                <Link to="/signup" style={path === "/signup" ? {color: "var(--green-500)"} : {}}>Sign Up</Link>
-                <Link to="/login" style={path === "/login" ? {color: "var(--green-500)"} : {}}>Log In</Link>
-            </>}
-            
+            <Link to="/offers" style={path === "/offers" ? {color: "var(--green-500)"} : {}}>Offers</Link>
+            <Link to="/vehicles" style={path === "/vehicles" ? {color: "var(--green-500)"} : {}}>Vehicles</Link>
+            <Link to="/applications" style={path === "/applications" ? {color: "var(--green-500)"} : {}}>Applications</Link>
+            <Link to="/monitoring" style={path === "/monitoring" ? {color: "var(--green-500)"} : {}}>Monitoring</Link>
+            <Link to="/settings" style={path === "/settings" ? {color: "var(--green-500)"} : {}}>Settings</Link>
+            <a href="" onClick={(e) => {handleLogout(e)}}>Logout</a>        
+        </div>
+        <div className="stripes" onClick={() => makeSublinksVisible()}>
+            <img src="/stripes.svg" alt="" width="30px" />
+        </div>
+        <div className="sublinks">
+            <span className="cross" onClick={() => makeSublinksInvisible()}><img src="/close.png" alt="" width="10px" /></span>
+            <Link to="/" style={path === "/" ? {color: "var(--green-500)"} : {}}>Home</Link>
+            <Link to="/offers" style={path === "/offers" ? {color: "var(--green-500)"} : {}}>Offers</Link>
+            <Link to="/vehicles" style={path === "/vehicles" ? {color: "var(--green-500)"} : {}}>Vehicles</Link>
+            <Link to="/applications" style={path === "/applications" ? {color: "var(--green-500)"} : {}}>Applications</Link>
+            <Link to="/monitoring" style={path === "/monitoring" ? {color: "var(--green-500)"} : {}}>Monitoring</Link>
+            <Link to="/settings" style={path === "/settings" ? {color: "var(--green-500)"} : {}}>Settings</Link>
+            <a href="" onClick={(e) => {handleLogout(e)}}>Logout</a>
         </div>
     </div>
 }
