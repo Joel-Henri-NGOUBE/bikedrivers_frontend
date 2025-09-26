@@ -3,7 +3,6 @@ import { MemoryRouter, Route, Routes } from "react-router"
 import { setupServer } from "msw/node"
 import { http, HttpResponse } from "msw"
 import userEvent from "@testing-library/user-event"
-import jwt from "jsonwebtoken"
 import Offers from "../Offers/Offers"
 import Monitoring from "../Monitoring/Monitoring"
 import AddOrSetOffer from "../AddOrSetOffer/AddOrSetOffer"
@@ -13,7 +12,6 @@ import SignUp from "../Signup/Signup"
 import LogIn from "../Login/Login"
 import PrivateRoute from "../../Components/PrivateRoutes/PrivateRoutes"
 import type { IOffer } from "../../Interfaces/IOffer"
-import Offer from "../Offer/Offer"
 
 const offers: IOffer[] = [
     {
@@ -102,15 +100,6 @@ afterAll(
         server.close()
     }
 )
-
-function setToken(){
-    const token = jwt.sign({username: "this@gmail.com", roles: ["ROLE_USER"]},"SECRET")
-    localStorage.setItem("token", token)
-}
-
-function unsetToken(){
-    localStorage.removeItem("token")
-}
 
 describe("Sign Up page tests", () => {
     it("Should contain 4 inputs", async () => {

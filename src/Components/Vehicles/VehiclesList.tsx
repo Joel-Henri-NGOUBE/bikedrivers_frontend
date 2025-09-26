@@ -1,4 +1,4 @@
-import type { IVehicle, IVehicleForm, IVehicleListProp } from "../../Interfaces/Vehicle";
+import type { IVehicleForm, IVehicleListProp } from "../../Interfaces/Vehicle";
 import { formateDate } from "../../Utils/functions";
 
 export default function VehiclesList({vehicles, vehiclesToPictures, setVehicleId, setVehicleForm, handleDelete}: IVehicleListProp){
