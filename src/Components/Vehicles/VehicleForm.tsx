@@ -3,6 +3,11 @@ import { formateDate } from "../../Utils/functions"
 import InputLabel from "../Inputs/InputLabel";
 
 export default function VehicleForm({vehicleForm, setVehicleForm, form, vehicleId, setVehicleId, addVehicle, setUploadedPicture}: IVehicleFormProp){
+    /**
+     * Modifies vehicles' information
+     * @param id The vehicle id
+     * @param vehicleForm The input values of the form
+     */
     function handleUnsetVehicle(form: IVehicleForm){
         setVehicleId(0)
         setVehicleForm(form)

@@ -34,6 +34,8 @@ export default function Offer(){
 
     const { id } = useParams()
 
+    // Getting the id if exists to verify if the current user is authenticated
+
     useEffect(() => {
         token
         &&
@@ -61,6 +63,7 @@ export default function Offer(){
         }
     , [])
 
+    // Getting the informations of the offer to modify
     useEffect(() => {
             fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}`].join(""), {
                 method: "GET"
@@ -71,6 +74,7 @@ export default function Offer(){
             })
         }, [])
 
+    // Finding if the authenticated user has already applied to the offer
     useEffect(() => {
             userId && fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}/applications/users/${userId}/hasApplied`].join(""), {
                 method: "GET"
@@ -81,6 +85,7 @@ export default function Offer(){
             })
         }, [userId])
 
+    // Finding all the required documents attached to the offer
     useEffect(() => {
             hasNotApplied && fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}/required_documents`].join(""), {
                 method: "GET"
@@ -95,6 +100,7 @@ export default function Offer(){
             })
         }, [hasNotApplied])
 
+    // Getting the images pictures
     useEffect(() => {
         if(offer){
         const vehicle_id = getLastSplittedElement(offer.vehicle)
@@ -107,6 +113,7 @@ export default function Offer(){
         })}
     }, [offer])
 
+    // Retrieving all the users documents in order to permit him to apply
     useEffect(() => {
             (hasNotApplied && userId) && fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/documents`].join(""), {
                 method: "GET"
@@ -117,7 +124,16 @@ export default function Offer(){
             })
         }, [userId, hasNotApplied])
 
+    /**
+     * Creates an application on the server
+     * @param associateDocumentsIdArray an array which associates required documents with documents
+     * @param offerId The id of the offer
+     */
     async function sendApplication(associateDocumentsIdArray: IAssociateDocumentsId[], offerId: number | undefined){
+        /**
+         * Calculates the sum of documentIds, if being 0, it means that a document is not specified for a required document,
+         * so the request won't be sent
+         */
         const isADocumentAssociated = associateDocumentsIdArray.reduce((acc, cur) => acc * cur.documentId, 1);
         isADocumentAssociated && associateDocumentsIdArray.forEach(async (adi) =>  {
            await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/required_documents/${adi.requiredDocumentId}/documents/${adi.documentId}/match_documents`].join(""), {

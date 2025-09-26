@@ -23,8 +23,7 @@ export default function LogIn(){
     
     const token = localStorage.getItem("token")
     
-    // Getting the id to verify is the current user is authenticated
-    
+    // Getting the id if exists to verify if the current user is authenticated
     useEffect(() => {
         token
         &&
@@ -45,7 +44,10 @@ export default function LogIn(){
     , [])
 
 
-
+    /**
+     * Making a request to create a new user on the server
+     * @param inputValues the values of the form
+     */
     function handleLogIn(inputValues: typeof form){
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/login_check"].join(""), {
             method: "POST",

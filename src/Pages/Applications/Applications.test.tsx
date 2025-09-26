@@ -102,7 +102,7 @@ afterAll(
 
 describe("Sign Up page tests", () => {
     it("Should contain 4 inputs", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         await act(async () => render(
         <MemoryRouter initialEntries={["/signup"]}>
                 <Routes>

@@ -154,7 +154,7 @@ function unsetToken(){
 
 describe("Header tests", () => {
     it("Should redirect to Signup page", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         await act(async () => render(
         <MemoryRouter initialEntries={["/"]}>
                 <Routes>
@@ -181,13 +181,13 @@ describe("Header tests", () => {
 
         const signupDivContainer =  document.querySelector(".signup-page")
 
-        // As the operations' class only exist on the operations' page, it asserts that the redirection was successful
+        // As the sign-up-page' class only exist on the operations' page, it asserts that the redirection was successful
         expect(signupDivContainer).toBeInTheDocument()
         expect(signupDivContainer).toBeVisible()
 
     })
     it("Should redirect to Login page", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         await act(async () => render(
         <MemoryRouter initialEntries={["/"]}>
                 <Routes>
@@ -219,7 +219,7 @@ describe("Header tests", () => {
         expect(signupDivContainer).toBeVisible()
     })
     it("Should redirect to AddOrSetOffer page", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         setToken()
 
         await act(async () => render(
@@ -255,7 +255,7 @@ describe("Header tests", () => {
 
     })
     it("Should redirect to Vehicles page", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         setToken()
 
         await act(async () => render(
@@ -291,7 +291,7 @@ describe("Header tests", () => {
 
     })
     it("Should redirect to Applications page", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         setToken()
 
         await act(async () => render(
@@ -328,7 +328,7 @@ describe("Header tests", () => {
 
     })
     it("Should redirect to Monitoring page", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         setToken()
 
         await act(async () => render(
@@ -366,7 +366,7 @@ describe("Header tests", () => {
 
     }),
     it("Should redirect to Login page after Logging out", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         setToken()
 
         await act(async () => render(

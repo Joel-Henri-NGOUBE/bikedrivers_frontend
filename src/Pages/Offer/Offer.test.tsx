@@ -193,7 +193,7 @@ function unsetToken(){
 
 describe("Offers page tests", () => {
     it("Should display offer page elements", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         await act(async () => render(
         <MemoryRouter initialEntries={["/offer/1"]}>
                 <Routes>
@@ -224,7 +224,7 @@ describe("Offers page tests", () => {
 
     })
     it("Should make the user apply", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         await act(async () => render(
         <MemoryRouter initialEntries={["/offer/1"]}>
                 <Routes>

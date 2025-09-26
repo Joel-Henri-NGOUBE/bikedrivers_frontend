@@ -2,6 +2,11 @@ import type { IVehicleForm, IVehicleListProp } from "../../Interfaces/Vehicle";
 import { formateDate } from "../../Utils/functions";
 
 export default function VehiclesList({vehicles, vehiclesToPictures, setVehicleId, setVehicleForm, handleDelete}: IVehicleListProp){
+    /**
+     * Modifies vehicles' information
+     * @param id The vehicle id
+     * @param vehicleForm The input values of the form
+     */
     function handleSetVehicle(id: number, vehicleForm: IVehicleForm){
         setVehicleId(id)
         setVehicleForm(vehicleForm)

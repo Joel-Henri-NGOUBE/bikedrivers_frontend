@@ -50,8 +50,7 @@ export default function AddOrSetOffer(){
 
     const token = localStorage.getItem("token")
         
-    // Getting the id to verify is the current user is authenticated
-    
+    // Getting the id if exists to verify if the current user is authenticated
     useEffect(() => {
         token
         ?
@@ -84,6 +83,7 @@ export default function AddOrSetOffer(){
             fetchOffers()
         }, [])
 
+    // Getting the offer's informations each time the location key changes
     useEffect(() => {
         (token && id) &&
             fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}`].join(""), {
@@ -106,6 +106,7 @@ export default function AddOrSetOffer(){
             !id && setFormValues((fv) => ({...fv, service: "LOCATION"}))
         }, [location.key])
 
+    // Retrieves all corresponding required documents of the offer each time the location key changes
     useEffect(() => {
         (token && id) &&
             fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}/required_documents`].join(""), {
@@ -120,6 +121,7 @@ export default function AddOrSetOffer(){
             })
     }, [location.key])
 
+    // Gets all the vehicles of the user
     useEffect(() => {
         (token && userId) &&
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
@@ -141,7 +143,9 @@ export default function AddOrSetOffer(){
         })
     }, [userId, offer?.vehicle])
 
-    
+    /**
+     * Finds all existing offers
+     */
     async function fetchOffers(){
         await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers`].join(""), {
                 method: "GET",
@@ -151,10 +155,17 @@ export default function AddOrSetOffer(){
             setOffers(() => res.member)
         )
 }
-
+    /**
+     * Whether adds or sets an offer depending of if a offer id is specified in the location
+     * @param formValues The values to send
+     * @param requiredDocuments The requiredDocuments
+     * @param vehicleId 
+     */
     async function addOrSetOffer(formValues: typeof form, requiredDocuments: IRequiredDocument[], vehicleId: number){
         if(!id){
+            // If no required name is given, the request can't be sent
             const isANameGiven = requiredDocuments.reduce((acc, cur) => acc + cur.name, "")
+            // Addition logic
             if(vehicleId && isANameGiven){
                 const offer: IOffer = await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/", userId, "/vehicles/", vehicleId,"/offers"].join(""), {
                             method: "POST",
@@ -174,7 +185,7 @@ export default function AddOrSetOffer(){
                 .then(res => {
                     return res.json()
                 })
-
+                // Getting requiredDocuments of each retrieved offer
                 requiredDocuments?.forEach((rd) => 
                 rd.name &&
                 fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/", offer.id, "/required_documents"].join(""), {
@@ -201,6 +212,7 @@ export default function AddOrSetOffer(){
             }
         }
         else{
+            // Update logic
             if(vehicleId){
                 fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/", userId, "/vehicles/", vehicleId, "/offers/", id].join(""), {
                     method: "PATCH",
@@ -249,6 +261,10 @@ export default function AddOrSetOffer(){
         }
     }
 
+    /**
+     * Suppresses the offer of the database
+     * @param offerId The id of an offer
+     */
     async function deleteOffer(offerId: number){
         await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/offers/", offerId].join(""), {
             method: "DELETE",

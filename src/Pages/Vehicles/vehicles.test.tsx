@@ -140,7 +140,7 @@ function unsetToken(){
 
 describe("Vehicles page tests", () => {
     it("Should change inputs values", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         await act(async () => render(
         <MemoryRouter initialEntries={["/vehicles"]}>
                 <Routes>
@@ -154,8 +154,6 @@ describe("Vehicles page tests", () => {
                 </Routes>
             </MemoryRouter>
         ))
-
-    // const vehiclesPage = await waitFor(() => document.querySelectorAll(".vehicles-page"))
 
         const inputs = await screen.findAllByRole("textbox")
 
@@ -185,7 +183,7 @@ describe("Vehicles page tests", () => {
 
     })
     it("Should delete a vehicle", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         await act(async () => render(
         <MemoryRouter initialEntries={["/vehicles"]}>
                 <Routes>

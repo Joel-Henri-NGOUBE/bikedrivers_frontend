@@ -14,12 +14,16 @@ export default function Applications(){
 
     const [offersElements, setOffersElements] = useState<IOfferElements[]>([])
 
+    /**
+     * A variable that associates offers to their existing applications
+     */
     const [offersToApplications, setOffersToApplications] = useState<IOffersToApplications[]>([])
 
     const navigate: NavigateFunction = useNavigate()
 
     const token = localStorage.getItem("token")
 
+    // Getting the id if exists to verify if the current user is authenticated
     useEffect(() => {
         token
         ?
@@ -48,6 +52,7 @@ export default function Applications(){
     }
     , [])
 
+    //Retrieves some offers caracteristics
     useEffect(() => {
         (token && userId) &&
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/offers/elements`].join(""), {
@@ -62,6 +67,7 @@ export default function Applications(){
         })
     }, [userId])
 
+    // Getting all the users that have applied to an offer
     useEffect(() => {
         token &&
         offersElements.forEach((oe) => {
@@ -73,6 +79,7 @@ export default function Applications(){
             })
         .then(res => res.json())
         .then((res: IApplication[]) => {
+            // Creates the structure of the object based of all the retrieved offers and the corresponding applications
             !offersToApplications.length && setOffersToApplications((ota) => [...ota, {offer: oe, applications: []}])
             setOffersToApplications((ota) => ota.map((oa) => 
                         (oa.offer.id_offer === oe.id_offer)
@@ -82,6 +89,10 @@ export default function Applications(){
     })
     }, [offersElements, offersToApplications.length])
 
+    /**
+     * Makes the  applications of an offer visible or not
+     * @param e The current event
+     */
     function toggleClass(e: any){
         const attribute = e.currentTarget.nextElementSibling?.getAttribute("class")
         attribute === "applications" ? e.currentTarget.nextElementSibling?.setAttribute("class", "applications disappear") : e.currentTarget.nextElementSibling?.setAttribute("class", "applications")

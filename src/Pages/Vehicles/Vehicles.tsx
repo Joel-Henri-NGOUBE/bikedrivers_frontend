@@ -37,7 +37,7 @@ export default function Vehicles(){
 
     const token = localStorage.getItem("token")
         
-    // Getting the id to verify if the current user is authenticated
+    // Getting the id if exists to verify if the current user is authenticated
 
     useEffect(() => {
         token
@@ -72,6 +72,7 @@ export default function Vehicles(){
         fetchVehicles(userId)
     }, [userId])
 
+    // Vehicles' pictures retrieval
     useEffect(() => {
         vehicles?.forEach((v) => {
             fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/", userId, "/vehicles/", v.id,"/pictures"].join(""), {
@@ -82,6 +83,7 @@ export default function Vehicles(){
                     })
             .then(res => res?.json())
             .then(res => {
+                // Creates the structure of the object based of all the retrieved vhicles and the corresponding applications
                 !vehiclesToPictures.length && setVehiclesToPictures((vtp) => [...vtp, {vehicleId: v.id, pictures: []}])
                 setVehiclesToPictures((vtp) => 
                     vtp.map((v2) => 
@@ -93,6 +95,7 @@ export default function Vehicles(){
             })
         }, [userId, vehicles])
 
+    // Getting all user's vehicles
     async function fetchVehicles(userId: number){
         await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
             method: "GET",
@@ -107,6 +110,7 @@ export default function Vehicles(){
             })
     }
 
+    // Modifying the caracteristics of a vehicle on the server
     async function addVehicle(vehicleId: number, uploadedPicture: File | null, vehicleForm: IVehicleForm){
         if(vehicleId){
             await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}`].join(""), {
@@ -119,6 +123,7 @@ export default function Vehicles(){
             })
             fetchVehicles(userId)
             setVehiclesToPictures((vtp) => [...vtp, {vehicleId: vehicleId, pictures: []}])
+            // Send files if there are
             if(uploadedPicture){
                 let formData = new FormData()
                 formData.append('file' ,uploadedPicture)
@@ -134,6 +139,7 @@ export default function Vehicles(){
                 fetchVehicles(userId)
             }
         }else{
+            // Creating a new Vehixcle on the server
             await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
                     method: "POST",
                     headers: {
@@ -149,6 +155,10 @@ export default function Vehicles(){
         }
     }
 
+    /**
+     * Deletes a vehicle
+     * @param vehicleId The id of a vehicle
+     */
     async function handleDelete(vehicleId: number){
         setVehicles((v) => v.filter((vehicle) => vehicle.id !== vehicleId));
         await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}`].join(""), {

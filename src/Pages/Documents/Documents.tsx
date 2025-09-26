@@ -20,6 +20,7 @@ export default function Documents(){
 
     const token = localStorage.getItem("token")
 
+    // Getting the id if exists to verify if the current user is authenticated
     useEffect(() => {
         token
         ?
@@ -53,6 +54,10 @@ export default function Documents(){
         fetchDocumentsElements(applicationId)
     }, [userId])
 
+    /**
+     * Retrieves the documents caracteristics
+     * @param applicationId The id of an application
+     */
     async function fetchDocumentsElements(applicationId: string){{
         await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/applications/${applicationId}/documents/elements`].join(""), {
             method: "GET",
@@ -67,6 +72,11 @@ export default function Documents(){
             })
     }}
 
+    /**
+     * Sets the state of an application to ACCEPTED
+     * @param offerId The id of the offer
+     * @param applicationId The id of the application
+     */
     async function handleAccept(offerId: number, applicationId: string | undefined){
         if(offerId && applicationId){
             await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${offerId}/applications/${applicationId}`].join(""), {
@@ -83,6 +93,11 @@ export default function Documents(){
         }
     }
 
+    /**
+     * Sets the state of an application to REJECTED
+     * @param offerId The id of the offer
+     * @param applicationId The id of the application
+     */
     async function handleReject(offerId: number, applicationId: string | undefined){
         if(offerId && applicationId){
             await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${offerId}/applications/${applicationId}`].join(""), {

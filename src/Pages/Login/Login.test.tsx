@@ -103,7 +103,7 @@ afterAll(
 
 describe("LogIn page tests", () => {
     it("Should contain 2 inputs", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         await act(async () => render(
         <MemoryRouter initialEntries={["/login"]}>
                 <Routes>
@@ -129,7 +129,7 @@ describe("LogIn page tests", () => {
 
     })
     it("Should contain a title, a button and a link", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         await act(async () => render(
         <MemoryRouter initialEntries={["/login"]}>
                 <Routes>
@@ -164,7 +164,7 @@ describe("LogIn page tests", () => {
 
     })
     it("Should redirect to Signup page", async () => {
-        // Awaiting the router for permitting the requests to reach the API routes before the application is rendered 
+        // Awaiting the router for permitting the requests to reach the API routes after the application is rendered 
         await act(async () => render(
         <MemoryRouter initialEntries={["/signup"]}>
                 <Routes>

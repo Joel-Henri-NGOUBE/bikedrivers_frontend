@@ -25,7 +25,7 @@ export default function SignUp(){
     
     const token = localStorage.getItem("token")
     
-    // Getting the id to verify is the current user is authenticated
+    // Getting the id to verify if the current user is authenticated
     
     useEffect(() => {
         token
@@ -46,6 +46,10 @@ export default function SignUp(){
         }
     , [])
 
+    /**
+     * Making a request to create a new user on the server
+     * @param inputValues the values of the form
+     */
     function handleSignUp(inputValues: typeof form){
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/signup"].join(""), {
             method: "POST",

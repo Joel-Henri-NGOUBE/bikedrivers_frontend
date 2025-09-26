@@ -24,8 +24,7 @@ export default function Monitoring(){
 
     const token = localStorage.getItem("token")
         
-    // Getting the id to verify is the current user is authenticated
-
+    // Getting the id if exists to verify if the current user is authenticated
     useEffect(() => {
         token
         ?
@@ -59,6 +58,7 @@ export default function Monitoring(){
         fetchDocuments(userId)
     }, [userId])
 
+    // fFetching all the offers to which the user applied
     useEffect(() => {
         (token && userId) &&
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/offers/applied`].join(""), {
@@ -73,6 +73,10 @@ export default function Monitoring(){
             })
     }, [userId])
 
+    /**
+     * Gets all the users' documents
+     * @param userId The id of the authenticated user
+     */
     async function fetchDocuments(userId: number){
         fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/documents`].join(""), {
             method: "GET",
@@ -87,6 +91,11 @@ export default function Monitoring(){
             })
     }
 
+    /**
+     * Sends documents to the server for the user
+     * @param userId The id of the authenticated user
+     * @param uploadedDocument The document that has been uploaded
+     */
     async function handleDocumentSending(userId: number, uploadedDocument: File | null){
         if(uploadedDocument){
         let formData = new FormData()
