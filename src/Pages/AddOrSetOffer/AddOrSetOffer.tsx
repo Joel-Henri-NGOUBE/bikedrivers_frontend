@@ -97,7 +97,6 @@ export default function AddOrSetOffer(){
             .then(res => res.status === 404 && parseInt(id) !== offer?.id ? navigate("/offers") : res.json()
             )
             .then((res: IOffer) => {
-                console.log(res)
                 setOffer(res);
                 setFormValues({...formValues,
                     title: res.title,
@@ -119,7 +118,6 @@ export default function AddOrSetOffer(){
             })
             .then(res => res.json())
             .then((res: any) => {
-                console.log(res)
                 setRequiredDocuments(res.member)
             })
     }, [location.key])
@@ -145,7 +143,6 @@ export default function AddOrSetOffer(){
                 // console.log(offer?.vehicle)
                 setVehicleId(vehicleId ? parseInt(vehicleId) : 0)
                 setFormValues({...formValues, vehicle: res.member.filter((v: any) => v.id === vehicleId)})
-                console.log("vehicle set", vehicleId)
             }
             setVehicleId(res.member[0].id)
         })
@@ -163,7 +160,6 @@ export default function AddOrSetOffer(){
 }
 
     async function addOrSetOffer(formValues: typeof form, navigate: Function, requiredDocuments: IRequiredDocument[], vehicleId: number){
-        console.log(userId, vehicleId)
         if(!id){
             const isANameGiven = requiredDocuments.reduce((acc, cur) => acc + cur.name, "")
             if(vehicleId && isANameGiven){
@@ -299,7 +295,7 @@ export default function AddOrSetOffer(){
                     <select name="vehicle" id="vehicle" value={formValues.vehicle} onChange={(e) => setFormValues({...formValues, vehicle: e.target.value})}>
                         {/* Définir vehicle ID pour chaque option */}
                         {vehicles?.map((v, index) => {
-                            return <option value={`${v.model.toUpperCase()} ${v.brand.toUpperCase()}`} key={index} onChange={() => {setVehicleId(v.id); console.log(v.id) }}>{`${v.model.toUpperCase()} ${v.brand.toUpperCase()}`}</option>})}
+                            return <option value={`${v.model.toUpperCase()} ${v.brand.toUpperCase()}`} key={index} onChange={() => setVehicleId(v.id)}>{`${v.model.toUpperCase()} ${v.brand.toUpperCase()}`}</option>})}
                     </select>
                 </div>
 

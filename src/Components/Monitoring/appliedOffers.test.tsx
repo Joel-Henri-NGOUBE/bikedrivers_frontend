@@ -57,7 +57,6 @@ describe("AppliedOffers Component tests", () => {
         
         const secondAppliedOfferTitleSpan = document.querySelector(".appliedOffer:nth-of-type(2) .title")
         expect(secondAppliedOfferTitleSpan).toHaveTextContent(appliedOffers[1].title)
-        console.log(secondAppliedOfferTitleSpan?.textContent, appliedOffers[1].title)
         
         const secondAppliedOfferStateSpan = document.querySelector(".appliedOffer:nth-of-type(2) .state")
         expect(secondAppliedOfferStateSpan).toHaveTextContent(appliedOffers[1].state)

@@ -59,7 +59,6 @@ export default function LogIn(){
         })
         .then(res => res.json())
         .then((res: TLogin) => {
-            console.log(res)
             setResponse(res);
             if("token" in res){
                 navigate("/")

@@ -20,7 +20,6 @@ export default function Offers(){
         })
         .then(res => res.json())
         .then((res: any) => {
-            console.log(res)
             setOffers(res.member);
         })
     }, [])

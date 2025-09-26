@@ -110,7 +110,6 @@ export default function Vehicles(){
     }
 
     async function addVehicle(vehicleId: number, uploadedPicture: File | null, vehicleForm: IVehicleForm){
-        console.log(vehicleId)
         if(vehicleId){
             await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}`].join(""), {
                     method: "PATCH",

@@ -65,7 +65,6 @@ export default function Documents(){
             .then(res => res.json())
             .then((res: IDocumentElements[]) => {
                 setDocumentsElements(res);
-                console.log(res)
             })
     }}
 
