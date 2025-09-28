@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+:root{
+    --green-600: #256308;
+    --green-500: #3E9E11;
+    --green-400: #56DE17;
+    --blue-500: #0D376E;
+    --blue-400: #1352A4;
+    --blue-300: #3C73FF;
+    --black-500: #000;
+    --black-400: #1F1F1F;
+    --black-300: #3D3D3D;
+    --gray-500: #E4E4E4;
+    --gray-400: #F5F5F5;
+    --white: #FFF;
+    --red-600: #A21616;
+    --red-500: #D71D1D;
+    --red-400: #E64646;
+}
+
+:root{
+    --h1-size: 32px;
+    --h1-semibold-weight: 600;
+    --h1-regular-weight: 400;
+    --h2-size: 26px;
+    --h2-weight: 600;
+    --h2-bis-size: 24px;
+    --h2-bis-weight: 650;
+    --h3-size: 20px;
+    --h3-semibold-weight: 600;
+    --h3-regular-weight: 600;
+    --h4-size: 14px;
+    --h4-semibold-weight: 600;
+    --h4-regular-weight: 400;
+    --h5-size: 12px;
+    --h5-weight: 400;
+
+    --body1-size: 14px;
+    --body2-size: 12px;
+    --body3-size: 10px;
+    --body-weight: 400;
+
+    --label1-size: 14px;
+    --label1-weight: 600;
+    --label2-size: 12px;
+    --label2-weight: 600;
+}
+
+*{
+    font-family: "DM Sans", sans-serif;
+}

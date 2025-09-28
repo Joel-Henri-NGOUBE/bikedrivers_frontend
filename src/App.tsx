@@ -1,20 +1,34 @@
 import { Routes, Route } from "react-router-dom";
 import SignUp from "./Pages/Signup/Signup";
-import LogIn from "./Pages/Login.tsx/Login";
+import LogIn from "./Pages/Login/Login";
 import Offers from "./Pages/Offers/Offers";
 import Offer from "./Pages/Offer/Offer";
+import AddOrSetOffer from "./Pages/AddOrSetOffer/AddOrSetOffer";
+import Vehicles from "./Pages/Vehicles/Vehicles";
+import Monitoring from "./Pages/Monitoring/Monitoring";
+import Applications from "./Pages/Applications/Applications";
+import Documents from "./Pages/Documents/Documents";
+import PrivateRoute from "./Components/PrivateRoutes/PrivateRoutes";
 
 function App() {
   return  <Routes>
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/" element={<LogIn />} />
-            <Route path="/offers" element={<Offers />}/>
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/" element={<Offers />}/>
             <Route path="/offer/:id" element={<Offer />}/>
-            {/* <Route path="/offer/:id/set" element={<SetOffers />}/> */}
-            {/* <Route path="/vehicles" element={<Vehicles />}>
-              <Route path="/vehicles/:id" element={<Vehicle />} />
+            <Route path="/monitoring" element={<Monitoring />}/>
+             
+            <Route element={<PrivateRoute />}>
+              <Route path="/vehicles" element={<Vehicles />}/>
+              <Route path="/offers" element={<AddOrSetOffer />}>
+                <Route path="/offers/:id" element={<AddOrSetOffer />}/>
+              </Route>
+              <Route path="/applications" element={<Applications />}/>
+              <Route path="/applications/:applicationId/documents" element={<Documents />}/>
             </Route>
-            <Route path="/applications" element={<Applications />}>
+              {/* <Route path="/vehicles/:id" element={<Vehicle />} /> */}
+            {/* </Route> */}
+            {/* <Route path="/applications" element={<Applications />}>
               <Route path="/applications/:id" element={<Application />}>
                 <Route path="/applications/:id/documents/:id_document" element={<Documents />}/>
               </Route>
