@@ -1,0 +1,105 @@
+@import "../pages.css";
+
+.offers-page{
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+#root > .offers-page > .content{
+    /* justify-content: center;
+    align-items: center; */
+    margin-top: 0px !important;
+}
+
+.offers-page .content a{
+    height: fit-content;
+}
+
+.offers-page .content .offers{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: calc(100% - 130px);
+}
+
+.offers-page .content .offers-wrapper{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 40px;
+    column-gap: 40px;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-content: flex-start;
+}
+
+.offers-page .content .offers .offer{
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    row-gap: 20px;
+    word-break: break-word;
+}
+
+.offers-page .content .offers .offer > div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.offers-page .content .offers .offer .date{
+    align-items: flex-end;
+    text-align: end;
+}
+
+.offers-page .content .offers .offer .title{
+    align-items: center;
+    font-size: var(--h3-size);
+    font-weight: var(--h3-semibold-weight);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.offers-page .content .offers .offer .description{
+    align-items: flex-end;
+    color: var(--gray-500);
+}
+
+.offers-page .pub{
+    position: fixed;
+    top: 80px;
+    width: 100%;
+    padding: 5px 0;
+    font-weight: var(--h3-semibold-weight);
+    text-align: center;
+    background-color: var(--gray-400);
+}
+
+.offers-page .pub b{
+    color: var(--blue-500);
+}
+
+.offers-page .filter{
+    margin-top: 140px;
+    align-self: center;
+    display: flex;
+    column-gap: 20px;
+}
+
+.offers-page input{
+    height: 40px;
+}
+
+@media screen and (max-width: 500px) {
+    .offers-page .content .offers .offer{
+        width: 320px;
+    }
+    .offers-page input{
+        width: 200px;
+    }
+}

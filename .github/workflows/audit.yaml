@@ -1,0 +1,48 @@
+name: React Vite Frontend Audit
+
+on:
+  push:
+    branches: [ "main", "testsAndAudit" ]
+  pull_request:
+    branches: [ "main", "testsAndAudit" ]
+
+jobs:
+  audit:
+    name: Run audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.18
+      
+      # Defining the cache dir in the environment variables of the runner
+      - name: Set Up Cache
+        run: echo "NODE_CACHE_DIR=$(npm config get cache)" >> $GITHUB_ENV
+
+      # Defining the cache dir access options
+      - name: Caching Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.NODE_CACHE_DIR }}
+          key: react-vite-{{ hashFiles('**/frontend/package.json') }}
+          restore-keys: |
+            react-vite-latest-
+
+      - name: Install dependencies
+        run: npm install
+      
+      # Executing the audit and defining its specifications
+      - name: Security Audit
+        run: npm audit --audit-level=critical --audit-level=high --dry-run > /tmp/security-audit-frontend.txt
+      
+      # Retrieving the audit result
+      - name: Upload security audit report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-audit
+          path: /tmp/security-audit-frontend.txt

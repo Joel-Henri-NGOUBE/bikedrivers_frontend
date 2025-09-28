@@ -1,0 +1,15 @@
+@import "../../style/variables.css";
+
+.company{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    column-gap: 20px;
+}
+
+h1{
+    font-size: var(--h2-bis-size);
+    font-weight: var(--h2-bis-weight);
+    color: var(--blue-500)
+}

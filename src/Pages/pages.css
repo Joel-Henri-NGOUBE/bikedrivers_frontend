@@ -1,0 +1,53 @@
+@import "../style/variables.css";
+
+
+.vehicles-page, .offers-page, .offer-page, .login-page, .signup-page, .documents-page, .applications-page, .addorsetoffer-page, .monitoring-page{
+    display: flex;
+    background-color: var(--gray-400);
+    width: 100%;
+    height: 100%;
+}
+
+.vehicles-page .content a, .offers-page .content a, .offer-page .content a, .documents-page .content a, .applications-page .content a, .addorsetoffer-page .content a{
+    color: var(--black-500);
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 130px;
+    width: 100%;
+    height: calc(100% - 80px);
+}
+
+.price{
+    font-weight: var(--h4-semibold-weight);
+    color: var(--blue-500);
+    font-size: var(--h3-size);
+}
+
+.service{
+    font-weight: var(--h4-semibold-weight);
+    /* color: var(--blue-500); */
+    border: 2px solid;
+    padding: 4px 10px;
+    border-radius: 5px;
+}
+
+button{
+    border: none;
+}
+
+button.delete{
+    background-color: var(--red-600);
+}
+
+/* button.cancelChange{
+    background-color: var(--black-500);
+} */
+
+label{
+    font-size: var(--h3-semibold-weight);
+    font-weight: var(--h3-semibold-weight);
+}

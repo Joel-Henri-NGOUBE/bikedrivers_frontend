@@ -1,0 +1,198 @@
+import { useEffect, useState } from "react"
+import VehiclesList from "../../Components/Vehicles/VehiclesList"
+import type { IVehicle, IVehicleForm, IVehicleToPictures } from "../../Interfaces/Vehicle"
+import { useNavigate, type NavigateFunction } from "react-router"
+import { jwtDecode } from "jwt-decode"
+import VehicleForm from "../../Components/Vehicles/VehicleForm"
+import { formateDate } from "../../Utils/functions"
+import { findIfUserIsAdmin } from "../../Components/PrivateRoutes/Utils/functions"
+import AdminHeader from "../../Components/Headers/AdminHeader"
+import UserHeader from "../../Components/Headers/UserHeader"
+import "./vehicles.css"
+
+export default function Vehicles(){
+
+    const [vehicles, setVehicles] = useState<IVehicle[]>([])
+
+    const [vehicleId, setVehicleId] = useState<number>(0)
+
+    const [uploadedPicture, setUploadedPicture] = useState<File | null>(null)
+
+    const form = {
+        brand: "",
+        model: "",
+        type: "",
+        purchasedAt: formateDate(null),
+    }
+
+    const [vehicleForm, setVehicleForm] = useState<IVehicleForm>(form)
+
+    const [userId, setUserId] = useState<number>(0)
+
+    const [isPictureUploaded, setIsPictureUploaded] = useState<boolean>(false)
+
+    const [vehiclesToPictures, setVehiclesToPictures] = useState<IVehicleToPictures[]>([])
+
+    const navigate: NavigateFunction = useNavigate()
+
+    const token = localStorage.getItem("token")
+        
+    // Getting the id if exists to verify if the current user is authenticated
+
+    useEffect(() => {
+        token
+        ?
+        fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/id"].join(""), {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        mail: (jwtDecode(token) as any).username
+                    })
+                })
+        .then(res => {
+             if(res.status.toString().startsWith("4")){
+                navigate("/login");
+             }
+             else{
+                return res.json()
+             }
+        })
+        .then((res: {id: number}) => {
+            setUserId(res.id)
+        })
+        : navigate("/login")
+        }
+    , [])
+
+    useEffect(() => {
+        (token && userId) &&
+        fetchVehicles(userId)
+    }, [userId])
+
+    // Vehicles' pictures retrieval
+    useEffect(() => {
+        vehicles?.forEach((v) => {
+            fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, "/api/users/", userId, "/vehicles/", v.id,"/pictures"].join(""), {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    })
+            .then(res => res?.json())
+            .then(res => {
+                // Creates the structure of the object based of all the retrieved vhicles and the corresponding applications
+                !vehiclesToPictures.length && setVehiclesToPictures((vtp) => [...vtp, {vehicleId: v.id, pictures: []}])
+                setVehiclesToPictures((vtp) => 
+                    vtp.map((v2) => 
+                        (v2.vehicleId === v.id)
+                        ? ({...v2, pictures: res.member})
+                        : v2)
+                )
+                })
+            })
+        }, [userId, vehicles])
+
+    // Getting all user's vehicles
+    async function fetchVehicles(userId: number){
+        await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+            })
+            .then(res => res.json())
+            .then((res: any) => {
+                setVehicles(() => res.member);
+            })
+    }
+
+    // Modifying the caracteristics of a vehicle on the server
+    async function addVehicle(vehicleId: number, uploadedPicture: File | null, vehicleForm: IVehicleForm){
+        if(vehicleId){
+            await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}`].join(""), {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/merge-patch+json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(vehicleForm)
+            })
+            fetchVehicles(userId)
+            setVehiclesToPictures((vtp) => [...vtp, {vehicleId: vehicleId, pictures: []}])
+            // Send files if there are
+            if(uploadedPicture){
+                let formData = new FormData()
+                formData.append('file' ,uploadedPicture)
+                await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}/pictures`].join(""), {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: formData
+                    })
+                .then(res => res.json())
+
+                fetchVehicles(userId)
+            }
+        }else{
+            // Creating a new Vehixcle on the server
+            await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles`].join(""), {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(vehicleForm)
+                })
+            .then(res => res.json())
+
+            fetchVehicles(userId)
+
+        }
+    }
+
+    /**
+     * Deletes a vehicle
+     * @param vehicleId The id of a vehicle
+     */
+    async function handleDelete(vehicleId: number){
+        setVehicles((v) => v.filter((vehicle) => vehicle.id !== vehicleId));
+        await fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/vehicles/${vehicleId}`].join(""), {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+            })
+    }
+
+    return <div className="vehicles-page">
+
+        {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}
+        
+        <div className="content">
+            <VehicleForm 
+            vehicleForm={vehicleForm}
+            setVehicleForm={setVehicleForm}
+            isPictureUploaded={isPictureUploaded}
+            setIsPictureUploaded={setIsPictureUploaded}
+            addVehicle={() => addVehicle(vehicleId, uploadedPicture, vehicleForm)}
+            setUploadedPicture={setUploadedPicture}
+            vehicleId={vehicleId}
+            setVehicleId={setVehicleId}
+            form={form}
+            />
+
+            <VehiclesList 
+            vehicles={vehicles}
+            vehiclesToPictures={vehiclesToPictures}
+            handleDelete={handleDelete}
+            setVehicleId={setVehicleId}
+            setVehicleForm={setVehicleForm}
+            />
+        </div>
+    </div>
+}

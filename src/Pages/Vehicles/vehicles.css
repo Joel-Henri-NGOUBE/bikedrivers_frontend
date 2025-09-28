@@ -1,0 +1,129 @@
+@import "../pages.css";
+
+.vehicles-page .content{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0 15%;
+    margin-top: 50px;
+
+}
+
+.vehicles-page .content{
+    align-items: center;
+}
+
+.vehicles-page .content .vehicle-form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    position: relative;
+    top: -10%;
+}
+
+.vehicles-page .content .vehicle-form button{
+    align-self: center;
+}
+
+.vehicles-page .content .vehicle-form .purchasedDate{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+input[type="date"]{
+    width: 300px;
+    padding: 5px 10px 5px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--gray-500);
+    outline: 1px solid var(--gray-500);
+}
+
+.vehicles-page .content .vehicle-form .imageField{
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+}
+
+
+.vehicles-page .content .vehicles-list{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    height: calc(90% - 80px);
+    overflow: auto;
+}
+
+.vehicles-page .content .vehicle-wrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 15px;
+    width: 400px;
+    word-break: break-word;
+}
+
+.vehicles-page .content .vehicle-wrapper .vehicle{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    width: calc(100%);
+}
+
+.vehicles-page .content .vehicle-wrapper .pictures{
+    display: flex;
+    row-gap: 10px;
+    column-gap: 10px;
+    flex-wrap: wrap;
+}
+
+.vehicles-page .content .vehicle-wrapper .pictures img{
+    border-radius: 5px;
+}
+
+.vehicles-page .content .vehicle-wrapper .pictures + button{
+    align-self: flex-end;
+}
+
+.vehicles-page .content .top{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    row-gap: 5px;
+    /* justify-content: space-between; */
+}
+
+
+.vehicles-page .content .top > :first-child{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.vehicles-page .content .type{
+    color: var(--gray-500);
+    font-size: var(--h4-size);
+    text-transform: capitalize;
+}
+
+@media screen and (max-width: 1000px) {
+    .vehicles-page .content{
+        flex-direction: column;
+        row-gap: 80px;
+        align-items: center;
+        margin-top: 150px;
+    }
+
+    .vehicles-page .content .vehicle-form{
+        position: relative;
+        top: 0px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .vehicles-page .content .vehicle-wrapper{
+        width: 320px;
+    }
+}
