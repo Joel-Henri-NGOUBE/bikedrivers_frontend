@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 src/backup/
-
+*.not.tsx
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
