@@ -13,10 +13,8 @@ dist-ssr
 *.local
 src/backup/
 *.not.tsx
-<<<<<<< HEAD
-=======
-
->>>>>>> d9869648516290b5df0a5c7bca0bc7ff0003ccb2
+/backup/
+!*/backup/*.yaml
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

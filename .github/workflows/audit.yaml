@@ -2,9 +2,9 @@ name: React Vite Frontend Audit
 
 on:
   push:
-    branches: [ "main", "testsAndAudit" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "testsAndAudit" ]
+    branches: [ "main" ]
 
 jobs:
   audit:

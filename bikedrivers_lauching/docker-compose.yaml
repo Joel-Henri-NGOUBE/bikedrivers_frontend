@@ -1,0 +1,45 @@
+services:
+# Lancer le service mysql
+  mysql:
+    image: mysql:8.0.43-debian
+    restart: always
+    # Déclaration des variables d'environnement du container
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_DATABASE: bikedrivers_api
+
+      MYSQL_PORT: 3306
+    # Déclaration des ports du container
+    ports:
+      - 3306:3306
+    # Définir un enregistrement des données de la base de données
+    volumes:
+      - ./backup/bikedrivers_api:/var/lib/mysql/
+
+# Lancer le service symfony
+  bikedrivers-api:      
+    image: jooocker/bikedrivers-api:v1.0.1
+    # Déclaration des ports du container
+    environment:
+      CORS_ALLOW_ORIGIN: '^http?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
+    ports:
+      - 8000:8000
+    restart: always
+    depends_on:
+      - mysql
+    volumes:
+      - ./backup/migrations:/bikedrivers/migrations/
+      - ./backup/media:/bikedrivers/public/media/
+
+      # Lancer le frontend
+  bikedrivers-frontend:
+    image: jooocker/bikedrivers-frontend:v1.0.1
+    environment:
+      VITE_APP_BACKEND_API_URL: http://127.0.0.1:8000
+    # Déclaration des variables d'environnement du container
+    ports:
+      - 5173:5173
+
+
+volumes:
+  backup:
