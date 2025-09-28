@@ -1,10 +1,14 @@
 @import "../pages.css";
 
+.offers-page{
+    flex-direction: column;
+    row-gap: 20px;
+}
 
-.offers-page .content{
+#root > .offers-page > .content{
     /* justify-content: center;
     align-items: center; */
-    margin-top: 150px;
+    margin-top: 0px !important;
 }
 
 .offers-page .content a{
@@ -80,8 +84,22 @@
     color: var(--blue-500);
 }
 
+.offers-page .filter{
+    margin-top: 140px;
+    align-self: center;
+    display: flex;
+    column-gap: 20px;
+}
+
+.offers-page input{
+    height: 40px;
+}
+
 @media screen and (max-width: 500px) {
     .offers-page .content .offers .offer{
         width: 320px;
+    }
+    .offers-page input{
+        width: 200px;
     }
 }

@@ -12,8 +12,6 @@
     color: var(--black-500);
 }
 
-
-
 .content{
     display: flex;
     flex-direction: column;

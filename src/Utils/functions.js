@@ -30,3 +30,12 @@ export function sliceFileName(fileName, maxLenght){
     return sliceText(stringName, maxLenght) + `.${extension}`
 
 }
+
+export function match(pattern, haystack){
+    const stringifiedHaystack = haystack.toString().toLowerCase()
+    const regexp = new RegExp("(\w)*" + pattern.toLowerCase() + "(\w)*", "g")
+    console.log(stringifiedHaystack)
+    const matchingArray = stringifiedHaystack.match(regexp)
+
+    return matchingArray
+}

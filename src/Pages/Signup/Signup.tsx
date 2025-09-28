@@ -25,7 +25,7 @@ export default function SignUp(){
     
     const token = localStorage.getItem("token")
     
-    // Getting the id to verify if the current user is authenticated
+    // Getting the id if exists to verify if the current user is authenticated
     
     useEffect(() => {
         token
