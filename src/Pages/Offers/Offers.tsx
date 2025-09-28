@@ -47,7 +47,7 @@ export default function Offers(){
         {findIfUserIsAdmin() ? <AdminHeader /> : <UserHeader />}  
         <div className="filter">
             <input type="text" className="search" placeholder="Audi 79B2 - SALE - Car..." value={searchPattern} onChange={(e) => handleSetSearchPattern(e, offers)}/>
-            {searchPattern && <button className="discard">Discard</button>}
+            {searchPattern && <button className="discard" onClick={() => setSearchPattern("")}>Discard</button>}
         </div>
         <div className="content">
         <span className="pub">Welcome to <b>BikeDrivers</b>. Find out a selection of all types of bikes for sale or for rent</span>
