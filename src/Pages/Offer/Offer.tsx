@@ -66,7 +66,7 @@ export default function Offer(){
     // Getting the informations of the offer to modify
     useEffect(() => {
             fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}`].join(""), {
-                method: "GET"
+                method: "GET",
             })
             .then(res => res.json())
             .then((res: any) => {
@@ -76,13 +76,17 @@ export default function Offer(){
 
     // Finding if the authenticated user has already applied to the offer
     useEffect(() => {
-            userId && fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}/applications/users/${userId}/hasApplied`].join(""), {
-                method: "GET"
+            (token && userId) && fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/offers/${id}/applications/users/${userId}/hasApplied`].join(""), {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
             })
             .then(res => res.json())
             .then((res: any) => {
                 setHasNotApplied(!res.hasApplied);
-            })
+            });
+            !token && setHasNotApplied(false)
         }, [userId])
 
     // Finding all the required documents attached to the offer
@@ -115,8 +119,11 @@ export default function Offer(){
 
     // Retrieving all the users documents in order to permit him to apply
     useEffect(() => {
-            (hasNotApplied && userId) && fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/documents`].join(""), {
-                method: "GET"
+            (hasNotApplied && userId && token) && fetch([`${import.meta.env.VITE_APP_BACKEND_API_URL}`, `/api/users/${userId}/documents`].join(""), {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             })
             .then(res => res.json())
             .then((res: any) => {
